@@ -1,0 +1,14 @@
+<h1>New Fund</h1>
+
+<%= form_for([@organization, @organization.funds.new]) do |f| %>
+	<%= render :partial => 'form', :object => f %>
+	<p> 
+		<%= f.submit 'Create fund' %>
+	</p>
+
+<% end %>
+
+<br />
+<div class='back_footer'>
+	<%= link_to 'Back', organization_path(@organization) %>
+</div>

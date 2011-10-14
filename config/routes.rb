@@ -1,4 +1,26 @@
 Fundtracker2::Application.routes.draw do
+
+  root :to => "organizations#index"
+  
+  resources :organizations
+  resources :funds
+  resources :companies
+  resources :investments
+  resources :financials
+  resources :balances
+  
+  resources :organizations do
+    resources :funds do
+      resources :companies
+    end
+  end
+  
+  resources :companies do
+    resources :investments
+    resources :financials
+    resources :balances
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
