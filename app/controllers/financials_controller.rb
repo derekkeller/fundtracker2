@@ -1,5 +1,7 @@
 class FinancialsController < ApplicationController
   before_filter :load_paths
+  require 'financial_summary'
+
 
   def index
     @view_by = get_view_by()

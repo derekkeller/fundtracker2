@@ -1,2 +1,60 @@
-<h1>Investments#show</h1>
-<p>Find me in app/views/investments/show.html.erb</p>
+<h2><%= @investment.name %> Investment Detail</h2>
+
+<table style="width:300px; text-align:left">
+	<tr>
+		<th >Date</th>
+		<td class="right"><%= @investment.date %></td>
+	</tr>
+	<tr>
+		<th>Name</th>
+		<td class="right"><%= nh(@investment.name) %></td>
+	</tr>
+	<tr>
+		<th>Security</th>
+		<td class="right"><%= @investment.security_type %></td>
+	</tr>
+	<tr>
+		<th>H12 Investment Amount</th>
+		<td class="right"><%= nh(@investment.investment_amount) %></td>
+	</tr>
+	<tr>
+		<th>Pre-Money</th>
+		<td class="right"><%= nh(@investment.pre_money) %></td>
+	</tr>
+	<tr>
+		<th>Total Raise</th>
+		<td class="right"><%= nh(@investment.capital_raised) %></td>
+	</tr>
+	<tr>
+		<th>Post-Money</th>
+		<td class="right"><%= nh(@investment.post_money) %></td>
+	</tr>
+	<tr>
+		<th>Liquidation Preference</th>
+		<td class="right"><%= @investment.liquidation_preference %></td>
+	</tr>
+	<tr>
+		<th>Liquidation Preference Cap</th>
+		<td class="right"><%= @investment.liquidation_preference_cap %></td>
+	</tr>
+	<tr>
+		<th>Fully-Diluted Ownership % *</th>
+		<td class="right"><%= @investment.fully_diluted_ownership %></td>
+	</tr>
+	<tr>
+		<th>Preferred Ownership % *</th>
+		<td class="right"><%= @investment.fully_diluted_ownership %></td>
+	</tr>	
+	<tr>
+		<td><span style="font-style:italic">(* At the time of investment)</span></td>
+		<td></td>
+	</tr>
+</table>
+
+<h2>Notes:</h2>
+<p class="small_text"><%= @investment.notes %></p>
+
+<div class='back_footer'>
+	<%= link_to 'Edit', edit_organization_fund_company_investment_path(@organization, @fund, @company, @investment)%> | 
+	<%= link_to 'Back', organization_fund_company_investments_path(@organization, @fund, @company) %>
+</div>

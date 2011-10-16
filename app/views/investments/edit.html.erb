@@ -1,0 +1,15 @@
+<h2>Edit Investment</h2>
+
+<%= form_for [@organization, @fund, @company, @investment] do |f| %>
+	<% if @investment.errors.any? %>
+		<ul>
+		<%= @investment.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+		<% end %>
+		</ul>
+	<% end %>
+	<%= render :partial => 'form', :object => f %>
+	<p>
+		<%= f.submit "Update investment" %>
+	</p>
+<% end %>

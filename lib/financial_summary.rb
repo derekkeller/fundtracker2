@@ -1,6 +1,6 @@
 class FinancialSummary
 
-  attr_accessor :company, :period_set
+  attr_accessor :company, :financial_set
 
 
   FinancialSet = Struct.new(:bookings, :revenue, :cogs, :operating_expenses, :year)
@@ -37,7 +37,7 @@ class FinancialSummary
                                       sum(operating_expenses) operating_expenses
                                     FROM financials
                                     WHERE company_id=#{company.id} AND period between '#{period[0]}' AND '#{period[1]}'
-                                    GROPU BY company_id")    
+                                    GROUP BY company_id")    
   end
 
 end

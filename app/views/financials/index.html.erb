@@ -19,4 +19,22 @@
 			<td><%= fs.bookings %></td>
 		<% end %>
 	</tr>
+	<tr>
+		<td>Revenue</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td><%= fs.revenue %></td>
+		<% end %>
+	</tr>
+	<tr>
+		<td>COGS</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td><%= fs.cogs %></td>
+		<% end %>
+	</tr>
+	<tr>
+		<td>Operating Expenses</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td><%= fs.operating_expenses %></td>
+		<% end %>
+	</tr>
 </table>

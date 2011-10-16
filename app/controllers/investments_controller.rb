@@ -2,6 +2,7 @@ class InvestmentsController < ApplicationController
   before_filter :load_paths
 
   def index
+    @investments = @company.investments.all
   end
 
   def new
@@ -18,6 +19,20 @@ class InvestmentsController < ApplicationController
   end
 
   def show
+    @investment = @company.investments.find(params[:id])
+  end
+
+  def edit
+    @investment = @company.investments.find(params[:id])
+  end
+  
+  def update
+    @investment = @company.investments.find(params[:id])
+    if @investment.update_attributes(params[:investment])
+      redirect_to organization_fund_company_investment_path(@organization, @fund, @company, @investment), :flash => {:success => "Invesetment updated"}
+    else
+      render :edit
+    end
   end
 
   private

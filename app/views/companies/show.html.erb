@@ -42,31 +42,31 @@
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">TTM Annual Revenue Growth</div>	
-			<div id="company_summary_box_content_value"><%= ph(@company.ttm_revenue_growth) %></div>
+			<div id="company_summary_box_content_value"><%= ph(@company.ttm_revenue_growth, 1) %></div>
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">TTM Monthly Revenue Growth</div>	
-			<div id="company_summary_box_content_value">?</div>
+			<div id="company_summary_box_content_value"><%= ph(@company.ttm_revenue_growth_monthly, 1) %></div>
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Cash Balance</div>	
-			<div id="company_summary_box_content_value">$2,000,000</div>
+			<div id="company_summary_box_content_value"><%= nh(@company.current_cash_balance) %></div>
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Cash Burn (monthly)</div>	
-			<div id="company_summary_box_content_value">$200,000</div>
+			<div id="company_summary_box_content_value">?</div>
 		</div>		
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Cash Runway</div>	
-			<div id="company_summary_box_content_value">10 months</div>
+			<div id="company_summary_box_content_value">10 months ?</div>
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Revenue per employee (annual)</div>	
-			<div id="company_summary_box_content_value">$40,000</div>
+			<div id="company_summary_box_content_value">$40,000 ?</div>
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Expense per revenue (annual)</div>	
-			<div id="company_summary_box_content_value">$50,000</div>
+			<div id="company_summary_box_content_value">$50,000 ?</div>
 		</div>
 	</div>
 
@@ -133,10 +133,10 @@
 			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_expenses(2011)) %></div>
 		</div>
 		<div id="company_summary_box_wide_content_container">
-			<div id="company_summary_box_wide_content_name">Compound annual growth rate</div>	
-			<div id="company_summary_box_wide_content_value">?</div>
-			<div id="company_summary_box_wide_content_value">?</div>
-			<div id="company_summary_box_wide_content_value">?</div>
+			<div id="company_summary_box_wide_content_name">Annual growth rate</div>	
+			<div id="company_summary_box_wide_content_value">-</div>
+			<div id="company_summary_box_wide_content_value"><%= ph(((@company.annual_revenue(2010) / @company.annual_revenue(2009).to_f) - 1)*100, 1) %></div>
+			<div id="company_summary_box_wide_content_value"><%= ph(((@company.annual_revenue(2011) / @company.annual_revenue(2010).to_f) - 1)*100, 1) %></div>
 		</div>		
 		<div id="company_summary_box_wide_content_container">
 			<div id="company_summary_box_wide_content_name">Gross Margin</div>	
@@ -146,15 +146,15 @@
 		</div>
 		<div id="company_summary_box_wide_content_container">
 			<div id="company_summary_box_wide_content_name">Operating Margin</div>	
-			<div id="company_summary_box_wide_content_value">?</div>
-			<div id="company_summary_box_wide_content_value">?</div>
-			<div id="company_summary_box_wide_content_value">?</div>
+			<div id="company_summary_box_wide_content_value"><%= ph(@company.annual_operating_margin(2009)*100, 1) %></div>
+			<div id="company_summary_box_wide_content_value"><%= ph(@company.annual_operating_margin(2010)*100, 1) %></div>
+			<div id="company_summary_box_wide_content_value"><%= ph(@company.annual_operating_margin(2011)*100, 1) %></div>
 		</div>
 		<div id="company_summary_box_wide_content_container">
 			<div id="company_summary_box_wide_content_name">Net Margin</div>	
-			<div id="company_summary_box_wide_content_value">?</div>
-			<div id="company_summary_box_wide_content_value">?</div>
-			<div id="company_summary_box_wide_content_value">?</div>
+			<div id="company_summary_box_wide_content_value"><%= ph(@company.annual_net_margin(2009)*100, 1) %></div>
+			<div id="company_summary_box_wide_content_value"><%= ph(@company.annual_net_margin(2010)*100, 1) %></div>
+			<div id="company_summary_box_wide_content_value"><%= ph(@company.annual_net_margin(2011)*100, 1) %></div>
 		</div>
 	</div>
 
