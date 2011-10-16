@@ -15,6 +15,11 @@ class CreateFinancials < ActiveRecord::Migration
       t.integer :other_income, :default => 0
       t.integer :other_expense, :default => 0
       t.integer :tax_expense, :default => 0
+      t.integer :head_count, :integer
+      t.integer :debt_balance, :integer, :default => 0
+      t.integer :cash_balance, :integer, :default => 0    
+      t.integer :cash_burn, :integer, :default => 0
+      t.date    :period
       t.timestamps
     end
   end

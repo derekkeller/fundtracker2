@@ -1,2 +1,22 @@
-<h1>Financials#index</h1>
-<p>Find me in app/views/financials/index.html.erb</p>
+<h2>Financials Show (single company)</h2>
+
+<span class="<%= set_class_type(session[:period_type], 'year') %>">
+<%= link_to "Year", financial_change_view_type_path(1, :company_id => params[:company_id]) %></span>
+
+<span class="<%= set_class_type(session[:period_type], 'quarter') %>">
+<%= link_to "Quarter", financial_change_view_type_path(2, :company_id => params[:company_id]) %></span>
+
+<span class="<%= set_class_type(session[:period_type], 'month') %>">
+<%= link_to "Month", financial_change_view_type_path(3, :company_id => params[:company_id]) %></span>
+
+<br />
+<br />
+
+<table>
+	<tr>
+		<td>Bookings</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td><%= fs.bookings %></td>
+		<% end %>
+	</tr>
+</table>

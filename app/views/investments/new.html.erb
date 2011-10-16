@@ -1,2 +1,15 @@
-<h1>Investments#new</h1>
-<p>Find me in app/views/investments/new.html.erb</p>
+<h1>New Investment</h1>
+
+<%= form_for [@organization, @fund, @company, @investment] do |f| %>
+	<% if @investment.errors.any? %>
+		<ul>
+		<%= @investment.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+		<% end %>
+		</ul>
+	<% end %>
+	<%= render :partial => 'form', :object => f %>
+	<p>
+		<%= f.submit "Create investment" %>
+	</p>
+<% end %>

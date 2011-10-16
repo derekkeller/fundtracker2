@@ -9,4 +9,12 @@ module ApplicationHelper
     b = a == 'NaN%' ? '0%' : a
   end
 
+  def set_class_type(a,b)
+    if a == b
+      'bold'
+    else
+      ''
+    end    
+  end
+
 end

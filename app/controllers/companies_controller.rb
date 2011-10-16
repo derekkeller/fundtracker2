@@ -21,6 +21,19 @@ class CompaniesController < ApplicationController
     @company = @fund.companies.find(params[:id])
   end
 
+  def edit
+    @company = @fund.companies.find(params[:id])    
+  end
+
+  def update
+    @company = @fund.companies.find(params[:id])
+    if @company.update_attributes(params[:company])
+      redirect_to organization_fund_company_path(@organization, @fund, @company), :flash => {:success => "Company updated"}
+    else
+      render :edit
+    end
+  end
+
   private
     def load_paths
       @organization = Organization.find(params[:organization_id])

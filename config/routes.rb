@@ -6,21 +6,22 @@ Fundtracker2::Application.routes.draw do
   resources :funds
   resources :companies
   resources :investments
-  resources :financials
+  resources :financials do
+    put :change_period
+    put :change_view_type
+  end  
   resources :balances
   
   resources :organizations do
     resources :funds do
-      resources :companies
+      resources :companies do
+        resources :investments
+        resources :financials
+        resources :balances
+      end
     end
   end
   
-  resources :companies do
-    resources :investments
-    resources :financials
-    resources :balances
-  end
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

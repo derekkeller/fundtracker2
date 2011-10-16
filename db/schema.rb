@@ -11,18 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111013172448) do
-
-  create_table "balances", :force => true do |t|
-    t.integer  "company_id"
-    t.date     "period_end"
-    t.integer  "head_count"
-    t.integer  "debt_balance", :default => 0
-    t.integer  "cash_balance", :default => 0
-    t.integer  "cash_burn",    :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20111012191044) do
 
   create_table "companies", :force => true do |t|
     t.integer  "fund_id"
@@ -57,9 +46,14 @@ ActiveRecord::Schema.define(:version => 20111013172448) do
     t.integer  "other_income",       :default => 0
     t.integer  "other_expense",      :default => 0
     t.integer  "tax_expense",        :default => 0
+    t.integer  "head_count"
+    t.integer  "integer",            :default => 0
+    t.integer  "debt_balance",       :default => 0
+    t.integer  "cash_balance",       :default => 0
+    t.integer  "cash_burn",          :default => 0
+    t.date     "period"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "period"
   end
 
   create_table "funds", :force => true do |t|
@@ -78,24 +72,24 @@ ActiveRecord::Schema.define(:version => 20111013172448) do
   create_table "investments", :force => true do |t|
     t.integer  "company_id"
     t.string   "name"
-    t.decimal  "existing_capital_raised",    :precision => 11, :scale => 2, :default => 0.0
+    t.integer  "existing_capital_raised",                                  :default => 0
     t.date     "date"
-    t.integer  "pre_money",                                                 :default => 0
-    t.integer  "capital_raised",                                            :default => 0
-    t.integer  "post_money",                                                :default => 0
+    t.integer  "investment_amount"
+    t.integer  "pre_money",                                                :default => 0
+    t.integer  "capital_raised",                                           :default => 0
+    t.integer  "post_money",                                               :default => 0
     t.string   "security_type"
-    t.decimal  "share_price",                :precision => 6,  :scale => 2, :default => 0.0
-    t.decimal  "liquidation_preference",     :precision => 6,  :scale => 2, :default => 0.0
-    t.decimal  "liquidation_preference_cap", :precision => 6,  :scale => 2, :default => 0.0
-    t.decimal  "dividend_rate",              :precision => 5,  :scale => 2, :default => 0.0
-    t.integer  "dividends_period"
+    t.decimal  "share_price",                :precision => 6, :scale => 2, :default => 0.0
+    t.decimal  "liquidation_preference",     :precision => 6, :scale => 2, :default => 0.0
+    t.decimal  "liquidation_preference_cap", :precision => 6, :scale => 2, :default => 0.0
+    t.decimal  "dividend_rate",              :precision => 5, :scale => 2, :default => 0.0
+    t.integer  "dividend_period"
     t.integer  "shares_purchased"
-    t.decimal  "preferred_ownership",        :precision => 5,  :scale => 2, :default => 0.0
-    t.decimal  "fully_diluted_ownership",    :precision => 5,  :scale => 2, :default => 0.0
+    t.decimal  "preferred_ownership",        :precision => 5, :scale => 2, :default => 0.0
+    t.decimal  "fully_diluted_ownership",    :precision => 5, :scale => 2, :default => 0.0
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "investment_amount",                                         :default => 0
   end
 
   create_table "organizations", :force => true do |t|
