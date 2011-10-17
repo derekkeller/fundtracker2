@@ -1,7 +1,7 @@
 class Company < ActiveRecord::Base
 
   belongs_to :fund
-  has_many :investments, :order => 'date DESC'
+  has_many :investments, :order => 'date ASC'
   has_many :financials
   has_many :balances
   has_many :users
@@ -13,7 +13,7 @@ class Company < ActiveRecord::Base
   end
   
   def ownership_percentage
-    self.investments.order('date DESC').last.fully_diluted_ownership
+    self.investments.last.fully_diluted_ownership
   rescue
     0    
   end
@@ -52,8 +52,8 @@ class Company < ActiveRecord::Base
   
   def cash_runway
     #take most current cash balance, and divide by the most current cash/burn
-    cash_balance = self.balances.order('period_end DESC').last.cash_balance
-    cash_burn = self.balances.order('period_end DESC').last.cash_burn
+    cash_balance = self.financials.order('period_end ASC').last.cash_balance
+    cash_burn = self.financials.order('period_end ASC').last.cash_burn
     cash_balance / cash_burn    
   rescue
     0

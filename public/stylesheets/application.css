@@ -238,6 +238,10 @@ tr.total_row {
 .right {
   text-align: right; }
 
+.italic {
+	font-style: italic;
+}
+
 .bold {
   font-weight: bold; }
 

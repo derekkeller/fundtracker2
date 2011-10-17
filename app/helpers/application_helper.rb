@@ -4,6 +4,10 @@ module ApplicationHelper
     number_to_currency(number, :precision => decimals)    
   end
 
+  def nhd(number)
+    number_with_delimiter(number, :delimiter => ',')
+  end
+
   def ph(n, p=0)
     a = number_to_percentage(n, :precision => p)
     b = a == 'NaN%' ? '0%' : a
