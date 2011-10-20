@@ -1,19 +1,19 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  def set_period_type(p)
+  def set_view_period(p)
     case p
     when '1'
-      session[:view_by] = 'year'
+      session[:view_period] = 'year'
     when '3'
-      session[:view_by] = 'month'
+      session[:view_period] = 'month'
     else
-      session[:view_by] = 'quarter'
+      session[:view_period] = 'quarter'
     end
   end
 
-  def get_view_by
-    session[:view_by] ||= 'quarter'    
+  def get_view_period
+    session[:view_period] ||= 'quarter'
   end
 
   def get_months(period)        

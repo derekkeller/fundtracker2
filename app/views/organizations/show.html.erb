@@ -43,13 +43,13 @@
 	<% @organization.companies.each do |c| %>
 		<tr>
 			<td><%= link_to c.name, organization_fund_company_path(@organization, c.fund, c) %></td>
-			<td class="right"><%= ph(c.ownership_percentage) %></td>
+			<td class="right"><%= ph(c.current_investment(:fully_diluted_ownership)) %></td>
 			<td class="right"><%= nh(c.investment_total) %></td>
 			<td class="right"><%= nh(c.ttm_revenue) %></td>
 			<td></td>
 			<td></td>
 			<td></td>
-			<td class="right"><%= c.cash_runway %></td>
+			<td class="right"><%= nhp(c.cash_runway, 1) %> months</td>
 			<td></td>
 		</tr>
 	<% end %>

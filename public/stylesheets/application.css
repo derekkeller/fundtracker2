@@ -1,3 +1,56 @@
+a:link, a:visited {
+	color: #636EE7;
+}
+
+p {
+	font-size: 13px;
+}
+
+#advancement_container {
+	height: 20px;
+	position: relative;
+}
+
+#next_button {
+	position: absolute;
+	left: 85px;
+	top: 0px;	
+	font-size: .6em;
+	font-weight: bold;
+	text-indent: 6px;
+	color: #CCC;
+	line-height: 18px;
+}
+
+#next_button a:link, #next_button a:visited {
+	width: 80px;
+	height: 20px;
+	color: #FFF;
+	background: url(../images/next.png) no-repeat top left;
+	display: block;
+	text-decoration: none;
+}
+
+#previous_button {
+	position: absolute;
+	left: 0px;
+	top: 0px;	
+	font-size: .6em;
+	font-weight: bold;
+	text-indent: 6px;
+	color: #CCC;
+	line-height: 18px;
+}
+
+#previous_button a:link, #previous_button a:visited {
+	width: 80px;
+	height: 20px;
+	color: #FFF;
+	background: url(../images/previous.png) no-repeat top left;
+	display: block;
+	text-decoration: none;
+}
+
 body {
 	font-family: arial;
 }

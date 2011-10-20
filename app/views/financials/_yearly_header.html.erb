@@ -1,0 +1,6 @@
+<tr>
+	<td></td>
+	<% @financial_summary.financial_set.each do |fs| %>
+		<td><%= fs.label[0].year %></td>
+	<% end %>
+</tr>

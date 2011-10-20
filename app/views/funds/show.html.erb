@@ -22,7 +22,7 @@
 	<% @fund.companies.each do |company| %>
 	<tr class="<%= cycle('odd','even') %>">
 		<td><%= link_to company.name, organization_fund_company_path(@organization, @fund, company) %></td>
-		<td class="right"><%= company.ownership_percentage %></td>
+		<td class="right"><%= ph(company.current_investment(:fully_diluted_ownership),1) %></td>
 		<td class="right"><%= company.investment_total %></td>
 		<td class="right"><%= nh(company.ttm_revenue) %></td>
 		<td><%= %></td>

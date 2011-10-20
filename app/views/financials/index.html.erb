@@ -1,40 +1,36 @@
 <h2>Financials Show (single company)</h2>
 
-<span class="<%= set_class_type(session[:period_type], 'year') %>">
-<%= link_to "Year", financial_change_view_type_path(1, :company_id => params[:company_id]) %></span>
-
-<span class="<%= set_class_type(session[:period_type], 'quarter') %>">
-<%= link_to "Quarter", financial_change_view_type_path(2, :company_id => params[:company_id]) %></span>
-
-<span class="<%= set_class_type(session[:period_type], 'month') %>">
-<%= link_to "Month", financial_change_view_type_path(3, :company_id => params[:company_id]) %></span>
-
-<br />
-<br />
-
 <table>
+	<%= render @header_row_partial %>
 	<tr>
 		<td>Bookings</td>
 		<% @financial_summary.financial_set.each do |fs| %>
-			<td><%= fs.bookings %></td>
+			<td><%= nh(fs.bookings) %></td>
 		<% end %>
 	</tr>
 	<tr>
 		<td>Revenue</td>
 		<% @financial_summary.financial_set.each do |fs| %>
-			<td><%= fs.revenue %></td>
+			<td><%= nh(fs.revenue) %></td>
 		<% end %>
 	</tr>
 	<tr>
 		<td>COGS</td>
 		<% @financial_summary.financial_set.each do |fs| %>
-			<td><%= fs.cogs %></td>
+			<td><%= nh(fs.cogs) %></td>
 		<% end %>
 	</tr>
 	<tr>
 		<td>Operating Expenses</td>
 		<% @financial_summary.financial_set.each do |fs| %>
-			<td><%= fs.operating_expenses %></td>
+			<td><%= nh(fs.operating_expenses) %></td>
 		<% end %>
 	</tr>
 </table>
+
+<p><%= Rails.logger.info("* * #{params.inspect}") %></p>
+
+<div class='back_footer'>
+	<%= link_to 'Add Financial', new_organization_fund_company_financial_path(@organization, @fund, @company) %> |
+	<%= link_to 'Back', organization_fund_company_path(@organization, @fund, @company) %>
+</div>

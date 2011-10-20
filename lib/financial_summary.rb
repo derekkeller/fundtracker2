@@ -3,7 +3,7 @@ class FinancialSummary
   attr_accessor :company, :financial_set
 
 
-  FinancialSet = Struct.new(:bookings, :revenue, :cogs, :operating_expenses, :year)
+  FinancialSet = Struct.new(:bookings, :revenue, :cogs, :operating_expenses, :year, :label)
 
   def initialize(periods, company)
     @periods = periods
@@ -25,7 +25,7 @@ class FinancialSummary
         @operating_expenses   = 0
       end
       
-      @financial_set << FinancialSet.new(@bookings, @revenue, @cogs, @operating_expenses)
+      @financial_set << FinancialSet.new(@bookings, @revenue, @cogs, @operating_expenses, p.first.year, p)
     end   
   end
 

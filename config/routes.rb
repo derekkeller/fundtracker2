@@ -7,9 +7,9 @@ Fundtracker2::Application.routes.draw do
   resources :companies
   resources :investments
   resources :financials do
-    put :change_period
+    put :change_view_period
     put :change_view_type
-  end  
+  end 
   resources :balances
   
   resources :organizations do

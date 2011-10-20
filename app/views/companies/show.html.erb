@@ -6,7 +6,7 @@
 		<div id="company_summary_box_title">Investment Detail</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Ownership</div>	
-			<div id="company_summary_box_content_value"><%= ph(@company.ownership_percentage, 1) %></div>
+			<div id="company_summary_box_content_value"><%= ph(@company.current_investment(:fully_diluted_ownership), 1) %></div>
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Our Total Investment</div>	
@@ -14,23 +14,23 @@
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Our First Investment</div>	
-			<div id="company_summary_box_content_value"><%= @company.investments.order('date DESC').last.date %></div>
+			<div id="company_summary_box_content_value"><%= @company.first_investment(:date) %></div>
 		</div>		
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Most Recent Series</div>	
-			<div id="company_summary_box_content_value"><%= @company.investments.order('date DESC').last.name %></div>
+			<div id="company_summary_box_content_value"><%= @company.current_investment(:name) %></div>
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Total Capital Raised (to date)</div>	
-			<div id="company_summary_box_content_value"><%= nh(@company.investments.order('date DESC').last.existing_capital_raised) %></div>
+			<div id="company_summary_box_content_value"><%= nh(@company.current_investment(:existing_capital_raised)) %></div>
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Initial Pre-money Valuation</div>	
-			<div id="company_summary_box_content_value"><%= nh(@company.investments.order('date DESC').first.pre_money) %></div>
+			<div id="company_summary_box_content_value"><%= nh(@company.first_investment(:pre_money)) %></div>
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Current Post-money Valuation</div>	
-			<div id="company_summary_box_content_value"><%= nh(@company.investments.order('date DESC').last.post_money) %></div>
+			<div id="company_summary_box_content_value"><%= nh(@company.current_investment(:post_money)) %></div>
 		</div>
 	</div>
 
@@ -50,23 +50,23 @@
 		</div>
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Cash Balance</div>	
-			<div id="company_summary_box_content_value"><%= nh(@company.current_cash_balance) %></div>
-		</div>
+			<div id="company_summary_box_content_value"><%= nh(@company.current_financial(:cash_balance)) %></div>
+    </div>
 		<div id="company_summary_box_content_container">
-			<div id="company_summary_box_content_name">Cash Burn (monthly)</div>	
-			<div id="company_summary_box_content_value">?</div>
+			<div id="company_summary_box_content_name">Cash Burn</div>	
+			<div id="company_summary_box_content_value"><%= nh(@company.current_financial(:cash_burn)) %></div>
 		</div>		
 		<div id="company_summary_box_content_container">
 			<div id="company_summary_box_content_name">Cash Runway</div>	
-			<div id="company_summary_box_content_value">10 months ?</div>
+			<div id="company_summary_box_content_value"><%= nhp(@company.current_financial(:cash_balance).to_f / @company.current_financial(:cash_burn), 1) %> months</div>
 		</div>
 		<div id="company_summary_box_content_container">
-			<div id="company_summary_box_content_name">Revenue per employee (annual)</div>	
-			<div id="company_summary_box_content_value">$40,000 ?</div>
+			<div id="company_summary_box_content_name">Avg revenue per employee (<%= Date.today.year %>)</div>	
+			<div id="company_summary_box_content_value"><%= nh(@company.annual_financial(2011, :revenue) / @company.annual_financial_avg(2011, :head_count)) %></div>
 		</div>
 		<div id="company_summary_box_content_container">
-			<div id="company_summary_box_content_name">Expense per revenue (annual)</div>	
-			<div id="company_summary_box_content_value">$50,000 ?</div>
+			<div id="company_summary_box_content_name">Avg expense per employee (<%= Date.today.year %>)</div>	
+			<div id="company_summary_box_content_value"><%= nh(@company.annual_expenses(2011) / @company.annual_financial(2011, :head_count)) %></div>
 		</div>
 	</div>
 
@@ -82,7 +82,7 @@
 		</div>
 		<div id="company_summary_box_tall_content_container">
 			<div id="company_summary_box_tall_content_name">Employees</div>	
-			<div id="company_summary_box_tall_content_value">34</div>
+			<div id="company_summary_box_tall_content_value"><%= @company.current_financial(:head_count) %></div>
 		</div>		
 		<div id="company_summary_box_tall_content_container">
 			<div id="company_summary_box_tall_content_name">Founded</div>	
@@ -116,15 +116,15 @@
 		</div>
 		<div id="company_summary_box_wide_content_container">
 			<div id="company_summary_box_wide_content_name">Bookings</div>	
-			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_bookings(2009)) %></div>
-			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_bookings(2010)) %></div>
-			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_bookings(2011)) %></div>
+			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_financial(2009, :bookings)) %></div>
+			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_financial(2010, :bookings)) %></div>
+			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_financial(2011, :bookings)) %></div>
 		</div>
 		<div id="company_summary_box_wide_content_container">
 			<div id="company_summary_box_wide_content_name">Revenue</div> 
-			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_revenue(2009)) %></div>
-			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_revenue(2010)) %></div>
-			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_revenue(2011)) %></div>
+			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_financial(2009, :revenue)) %></div>
+			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_financial(2010, :revenue)) %></div>
+			<div id="company_summary_box_wide_content_value"><%= nh(@company.annual_financial(2011, :revenue)) %></div>
 		</div>
 		<div id="company_summary_box_wide_content_container">
 			<div id="company_summary_box_wide_content_name">Expenses</div>	
@@ -135,14 +135,14 @@
 		<div id="company_summary_box_wide_content_container">
 			<div id="company_summary_box_wide_content_name">Annual growth rate</div>	
 			<div id="company_summary_box_wide_content_value">-</div>
-			<div id="company_summary_box_wide_content_value"><%= ph(((@company.annual_revenue(2010) / @company.annual_revenue(2009).to_f) - 1)*100, 1) %></div>
-			<div id="company_summary_box_wide_content_value"><%= ph(((@company.annual_revenue(2011) / @company.annual_revenue(2010).to_f) - 1)*100, 1) %></div>
+			<div id="company_summary_box_wide_content_value"><%= ph(((@company.annual_financial(2010, :revenue) / @company.annual_financial(2009, :revenue).to_f) - 1)*100, 1) %></div>
+			<div id="company_summary_box_wide_content_value"><%= ph(((@company.annual_financial(2011, :revenue) / @company.annual_financial(2010, :revenue).to_f) - 1)*100, 1) %></div>
 		</div>		
 		<div id="company_summary_box_wide_content_container">
 			<div id="company_summary_box_wide_content_name">Gross Margin</div>	
-			<div id="company_summary_box_wide_content_value"><%= ph( (@company.annual_cogs(2009) / @company.annual_revenue(2009).to_f)*100, 1 ) %></div>
-			<div id="company_summary_box_wide_content_value"><%= ph( (@company.annual_cogs(2010) / @company.annual_revenue(2010).to_f)*100, 1 ) %></div>
-			<div id="company_summary_box_wide_content_value"><%= ph( (@company.annual_cogs(2011) / @company.annual_revenue(2011).to_f)*100, 1 ) %></div>
+			<div id="company_summary_box_wide_content_value"><%= ph( (@company.annual_financial(2009, :cogs) / @company.annual_financial(2009, :revenue).to_f)*100, 1 ) %></div>
+			<div id="company_summary_box_wide_content_value"><%= ph( (@company.annual_financial(2010, :cogs) / @company.annual_financial(2010, :revenue).to_f)*100, 1 ) %></div>
+			<div id="company_summary_box_wide_content_value"><%= ph( (@company.annual_financial(2011, :cogs) / @company.annual_financial(2011, :revenue).to_f)*100, 1 ) %></div>
 		</div>
 		<div id="company_summary_box_wide_content_container">
 			<div id="company_summary_box_wide_content_name">Operating Margin</div>	

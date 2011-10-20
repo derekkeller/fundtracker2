@@ -11,6 +11,9 @@
 <%= notice %>
 <%= alert %>
 
+<% if controller_name == 'financials' %>
+  <%= render 'financials_sub_nav' %>
+<% end %>
 <%= yield %>
 
 </body>

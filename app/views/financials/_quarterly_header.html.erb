@@ -1,0 +1,6 @@
+<tr>
+	<td></td>
+	<% @financial_summary.financial_set.each do |fs| %>
+		<td><%= what_quarter(fs.label[0]) %></td>
+	<% end %>
+</tr>

@@ -1,0 +1,5 @@
+<% @financial_summary.period_set.each do |ps| %>
+	<td class="right">
+		<%= ps.label[0].strftime("%b %y") %>
+	</td>
+<% end -%>

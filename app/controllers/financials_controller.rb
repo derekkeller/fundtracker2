@@ -4,18 +4,21 @@ class FinancialsController < ApplicationController
 
 
   def index
-    @view_by = get_view_by()
-    # @company = Company.find(params[:company_id])
+    @view_period = get_view_period()
+    @company = Company.find(params[:company_id])
 
-    session[:period] = Date.today
+    session[:crement_period] = Date.today
 
-    case @view_by
+    case @view_period
     when 'year'
-      @periods = get_years(session[:period])
+      @periods = get_years(session[:crement_period])
+      @header_row_partial = "yearly_header"
     when 'quarter'
-      @periods = get_quarters(session[:period])
+      @periods = get_quarters(session[:crement_period])
+      @header_row_partial = "quarterly_header"
     when 'month'
-      @periods = get_months(session[:period])
+      @periods = get_months(session[:crement_period])
+      @header_row_partial = "monthly_header"
     end
     
     @financial_summary = FinancialSummary.new(@periods, @company)
@@ -38,9 +41,9 @@ class FinancialsController < ApplicationController
   def show
   end
 
-  def change_period
-    set_period_type(params[:financial_id])
-    redirect_to :show, :company_id => params[:company_id]
+  def change_view_period
+    set_view_period(params[:financial_id])
+    redirect_to :action => :index, :company_id => params[:company_id]
   end
 
   private
