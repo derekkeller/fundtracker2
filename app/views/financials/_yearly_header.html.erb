@@ -1,6 +1,12 @@
-<tr>
-	<td></td>
+<tr class="theight theader bold">
+	<td>
+		<%= link_to '<<', company_financial_move_through_time_path(@company, 0, :organization_id => params[:organization_id], :fund_id => params[:fund_id]) %>
+			
+	</td>
 	<% @financial_summary.financial_set.each do |fs| %>
-		<td><%= fs.label[0].year %></td>
+		<td style="text-align: right"><%= fs.label[0].year %></td>
 	<% end %>
+	<td width="50" align="right">
+		<%= link_to '>>', company_financial_move_through_time_path(@company, 1, :organization_id => params[:organization_id], :fund_id => params[:fund_id]) %>
+	</td>
 </tr>

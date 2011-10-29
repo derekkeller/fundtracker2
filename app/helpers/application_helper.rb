@@ -8,6 +8,15 @@ module ApplicationHelper
     number_with_precision(number, :precision => decimals)
   end
 
+  def nhelper(number, decimals=0)
+    if session[:view_type] == 'sales'
+      a = number_to_percentage(number * 100, :precision => 1)
+      b = a == 'NaN%' ? '0%' : a
+    else
+      number_to_currency(number, :precision => decimals)
+    end
+  end
+
   def nhd(number)
     number_with_delimiter(number, :delimiter => ',')
   end
@@ -16,5 +25,18 @@ module ApplicationHelper
     a = number_to_percentage(n, :precision => p)
     b = a == 'NaN%' ? '0%' : a
   end
+
+  def available_funds(o)
+    o.funds.map {|f| [f.name, f.id]}.unshift(['All Funds',''])
+  rescue
+    Fund.all.map {|f| [f.name, f.id]}.unshift(['All Funds',''])
+  end
+  
+  def available_companies(o)
+    o.companies.map { |c| [c.name, c.id]}.unshift(['All Companies',''])
+  rescue
+    Company.all.map { |c| [c.name, c.id]}.unshift(['All Companies',''])
+  end
+
 
 end

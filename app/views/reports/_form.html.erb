@@ -1,0 +1,58 @@
+<table>
+	<% params.each do |key, value| %>
+		<tr>
+			<td><%= key %></td>
+			<td><%= value %></td>
+		</tr>
+	<% end %>
+</table>
+
+<%= form_for [@organization, @fund, @company, @report] do |f| %>
+
+	<div>
+		<%= f.label :period %>
+		<%= f.date_select :period, :discard_day => :true, :default => {:day => 1} %>
+	</div>
+	<div>
+		<%= f.label :summary %>
+		<%= f.select( :summary_status, options_for_select([ ["Green", 0], ["Yellow", 1], ["Red", 2] ])	) %><br />
+		<%= f.text_area :summary, :size => "110x4" %>
+	</div>
+	<div>
+		<%= f.label :management %><br />
+		<%= f.text_area :management, :size => "110x4" %>
+	</div>
+	<div>
+		<%= f.label :product %><br />
+		<%= f.text_area :product, :size => "110x4" %>
+	</div>	
+	<div>
+		<%= f.label :marketing %><br />
+		<%= f.text_area :marketing, :size => "110x4" %>
+	</div>	
+	<div>
+		<%= f.label :sales %><br />
+		<%= f.text_area :sales, :size => "110x4" %>
+	</div>
+	<div>
+		<%= f.label :business_development %><br />
+		<%= f.text_area :business_development, :size => "110x4" %>
+	</div>
+	<div>
+		<%= f.label :competition %><br />
+		<%= f.text_area :competition, :size => "110x4" %>
+	</div>	
+	<div>
+		<%= f.label :finance %><br />
+		<%= f.text_area :finance, :size => "110x4" %>
+	</div>
+	<div>
+		<%= f.label :legal %><br />
+		<%= f.text_area :legal, :size => "110x4" %>
+	</div>
+	<div>
+		<%= f.label :other %><br />
+		<%= f.text_area :other, :size => "110x4" %>
+	</div>
+	<%= f.submit %>
+<% end %>

@@ -1,13 +1,14 @@
 class FinancialsController < ApplicationController
   before_filter :load_paths
   require 'financial_summary'
-
+  require 'forecast_summary'
+  require 'sales_percentage_summary'
 
   def index
     @view_period = get_view_period()
+    @view_type = get_view_type()
+    
     @company = Company.find(params[:company_id])
-
-    session[:crement_period] = Date.today
 
     case @view_period
     when 'year'
@@ -21,8 +22,17 @@ class FinancialsController < ApplicationController
       @header_row_partial = "monthly_header"
     end
     
-    @financial_summary = FinancialSummary.new(@periods, @company)
-
+    case @view_type
+    when 'forecast'
+      @financial_summary = ForecastSummary.new(@periods, @company)
+      @nh = 'nh'
+    when 'sales'
+      @financial_summary = SalesPercentageSummary.new(@periods, @company)
+      @nh = 'nhp2'
+    else #actuals
+      @financial_summary = FinancialSummary.new(@periods, @company)
+      @nh = 'nh'
+    end
   end
 
   def new
@@ -38,12 +48,35 @@ class FinancialsController < ApplicationController
     end    
   end
 
+  def edit
+    @financial = @company.financials.find(params[:id])    
+  end
+
+  def update
+    @financial = @company.financials.find(params[:id])
+    if @financial.update_attributes(params[:financial])
+      redirect_to organization_fund_company_financials_path(@organization, @fund, @company), :flash => {:success => "Financial updated"}
+    else
+      render :edit
+    end    
+  end
+
   def show
   end
 
   def change_view_period
     set_view_period(params[:financial_id])
-    redirect_to :action => :index, :company_id => params[:company_id]
+    redirect_to :action => :index, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => params[:company_id]
+  end
+
+  def change_view_type
+    set_view_type(params[:financial_id])
+    redirect_to :action => :index, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => params[:company_id]    
+  end
+
+  def move_through_time
+    crement_period(params[:financial_id], params[:major])
+    redirect_to :action => :index, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => params[:company_id]
   end
 
   private

@@ -1,5 +1,5 @@
-class Investment < ActiveRecord::Base
+class Forecast < ActiveRecord::Base
 
   belongs_to :company, :dependent => :destroy
-  
+
 end

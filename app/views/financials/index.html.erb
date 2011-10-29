@@ -1,36 +1,187 @@
-<h2>Financials Show (single company)</h2>
-
 <table>
 	<%= render @header_row_partial %>
-	<tr>
-		<td>Bookings</td>
+	<tr class="theight" style="border-top: 1px, solid, #C9C9C9;">
+		<td style="text-indent:0">Cash Balance</td>
 		<% @financial_summary.financial_set.each do |fs| %>
-			<td><%= nh(fs.bookings) %></td>
+			<td style="width:85px; text-align:right"><%= nhelper(fs.cash_balance) %></td>
 		<% end %>
+		<td></td>
 	</tr>
-	<tr>
-		<td>Revenue</td>
+	<tr class="theight" style="border-top: 1px, solid, #C9C9C9;">
+		<td style="text-indent:0">Debt Balance</td>
 		<% @financial_summary.financial_set.each do |fs| %>
-			<td><%= nh(fs.revenue) %></td>
+			<td style="width:85px; text-align:right"><%= nhelper(fs.debt_balance) %></td>
 		<% end %>
+		<td></td>
 	</tr>
-	<tr>
+	<tr class="theight" style="border-top: 1px, solid, #C9C9C9;">
+		<td style="text-indent:0">Cash Burn</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="width:85px; text-align:right"><%= nhelper(fs.cash_burn) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight" style="border-top: 1px, solid, #C9C9C9;">
+		<td style="text-indent:0">Runway (<%= session[:view_period] %>s)</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="width:85px; text-align:right"><%= nhp(fs.cash_balance.to_f / fs.cash_burn, 1) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight tr_spacer" style="border-top: 1px, solid, #C9C9C9;">
+		<td style="text-indent:0">Head Count</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="width:85px; text-align:right"><%= fs.head_count %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="tr_spacer"></tr>
+	<tr class="theight" style="border-top: 1px, solid, #C9C9C9;">
+		<td style="text-indent:0">Bookings</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="width:85px; text-align:right"><%= nhelper(fs.bookings) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight">
+		<td style="text-indent:0">Revenue</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.revenue) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight">
 		<td>COGS</td>
 		<% @financial_summary.financial_set.each do |fs| %>
-			<td><%= nh(fs.cogs) %></td>
+			<td style="text-align:right"><%= nhelper(fs.cogs) %></td>
 		<% end %>
+		<td></td>
 	</tr>
-	<tr>
-		<td>Operating Expenses</td>
+	<tr class="ttotals">
+		<td>Gross Profit</td>
 		<% @financial_summary.financial_set.each do |fs| %>
-			<td><%= nh(fs.operating_expenses) %></td>
+			<td style="text-align:right"><%= nhelper(fs.revenue - fs.cogs) %></td>
 		<% end %>
+		<td></td>
+	</tr>
+	<tr class="tpercents">
+		<td></td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= number_to_percentage(fs.cogs.to_f / fs.revenue * 100, :precision => 1) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight">
+		<td>OpEx</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.operating_expenses) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight">
+		<td>SG&A</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.sg_and_a) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight">
+		<td>R&D</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.r_and_d) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="ttotals">
+		<td>Operating Profit</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.revenue - fs.cogs - fs.operating_expenses - fs.sg_and_a - fs.r_and_d) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="tpercents">
+		<td></td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= number_to_percentage((fs.revenue.to_f - fs.cogs - fs.operating_expenses - fs.sg_and_a - fs.r_and_d) / fs.revenue * 100, :precision => 1) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight">
+		<td>Depreciation</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.depreciation) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight">
+		<td>Amortization</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.amortization) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight">
+		<td>Int Income</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.interest_income) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight">
+		<td>Other Income</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.other_income) %></td>
+		<% end %>
+		<td></td>
+	</tr>			
+	<tr class="theight">
+		<td>Other Expense</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.other_expense) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="theight">
+		<td>Tax Expense</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.tax_expense) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="ttotals">
+		<td>Net Income</td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= nhelper(fs.revenue - fs.cogs - fs.operating_expenses - fs.sg_and_a - fs.r_and_d - fs.depreciation - fs.amortization - fs.interest_income - fs.other_income - fs.other_expense - fs.tax_expense) %></td>
+		<% end %>
+		<td></td>
+	</tr>
+	<tr class="tpercents">
+		<td></td>
+		<% @financial_summary.financial_set.each do |fs| %>
+			<td style="text-align:right"><%= number_to_percentage((fs.revenue - fs.cogs - fs.operating_expenses - fs.sg_and_a - fs.r_and_d - fs.depreciation - fs.amortization - fs.interest_income - fs.other_income - fs.other_expense - fs.tax_expense) / fs.revenue.to_f * 100, :precision => 1) %></td>
+		<% end %>
+		<td></td>
 	</tr>
 </table>
-
-<p><%= Rails.logger.info("* * #{params.inspect}") %></p>
 
 <div class='back_footer'>
 	<%= link_to 'Add Financial', new_organization_fund_company_financial_path(@organization, @fund, @company) %> |
 	<%= link_to 'Back', organization_fund_company_path(@organization, @fund, @company) %>
 </div>
+
+<br />
+<br />
+<br />
+<br />
+<table style="text-align:left; font-size: 14px; color: #20A5C7">
+	<tr>
+		<th style="width:100px">Key</th>
+		<th>Value</th>
+	</tr>
+	<% session.each do |key, value| %>
+	<tr>
+		<td><%= key %></td>
+		<td><%= value %></td>
+	</tr>
+	<% end %>
+</table>

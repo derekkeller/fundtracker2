@@ -1,6 +1,6 @@
 class Fund < ActiveRecord::Base
 
-  belongs_to :organization
+  belongs_to :organization, :dependent => :destroy
   has_many :companies, :order => "name"
   has_many :users
   has_many :investments, :through => :companies
@@ -19,5 +19,10 @@ class Fund < ActiveRecord::Base
     
     return invested.sum    
   end
+
+  def remaining_investible
+    self.size - self.management_fee - self.companies.sum(:reserves) - self.investments.sum(:investment_amount)
+  end
+
 
 end

@@ -1,6 +1,60 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  def crement_period(crement, major = '0')
+    case session[:view_period]
+    when 'year'
+      if crement == '1' 
+        session[:crement_period] += 1.year
+      else
+        session[:crement_period] -= 1.year
+      end
+    when 'month'
+      if major == '1'
+        if crement == '1'
+          session[:crement_period] += 1.year
+        else
+          session[:crement_period] -= 1.year
+        end
+      else
+        if crement == '1'
+          session[:crement_period] += 1.month
+        else
+          session[:crement_period] -= 1.month
+        end
+      end
+    else
+      if major == '1'
+        if crement == '1'
+          session[:crement_period] += 1.year
+        else
+          session[:crement_period] -= 1.year
+        end
+      else
+        if crement == '1'
+          session[:crement_period] = session[:crement_period].end_of_quarter + 1
+        else
+          session[:crement_period] = session[:crement_period].beginning_of_quarter - 1
+        end
+      end
+    end          
+  end
+
+  def set_view_type(t)
+    case t
+    when '1'
+      session[:view_type] = 'actual'
+    when '2'
+      session[:view_type] = 'forecast'
+    when '3'
+      session[:view_type] = 'variance'
+    when '4'
+      session[:view_type] = 'growth'
+    when '5'
+      session[:view_type] = 'sales'
+    end    
+  end
+
   def set_view_period(p)
     case p
     when '1'
@@ -10,6 +64,10 @@ class ApplicationController < ActionController::Base
     else
       session[:view_period] = 'quarter'
     end
+  end
+
+  def get_view_type
+    session[:view_type] ||= 'actual'    
   end
 
   def get_view_period

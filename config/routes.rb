@@ -1,6 +1,8 @@
 Fundtracker2::Application.routes.draw do
 
   root :to => "organizations#index"
+
+  post 'reports/show_filtered'
   
   resources :organizations
   resources :funds
@@ -10,15 +12,22 @@ Fundtracker2::Application.routes.draw do
     put :change_view_period
     put :change_view_type
   end 
-  resources :balances
+  resources :reports
   
   resources :organizations do
     resources :funds do
       resources :companies do
         resources :investments
         resources :financials
-        resources :balances
+        resources :forecasts
+        resources :reports
       end
+    end
+  end
+
+  resources :companies do
+    resources :financials do
+        get :move_through_time
     end
   end
   

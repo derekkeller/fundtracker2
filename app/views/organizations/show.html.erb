@@ -1,56 +1,56 @@
-<h4>
+<h2>
 	<%= "#{@organization.name} | Total Funds: #{@funds.count}"%>
-</h4>
+</h2>
 <br />
 
-<table class="org_summary">
+<table class="org_summary right">
 	<tr>
-		<th>Fund</th>
-		<th>Total Companies</th>
-		<th>Total Size</th>
-		<th>Mgmt Fee <br />Estimate</th>
-		<th>Invested <br />to date</th>
-		<th>Reserves</th>
-		<th>Remaining Investible</th>
-		<th>As % of <br />Total Size</th>
-		<th>Close Date</th>
+		<th class="left9 left">Fund</th>
+		<th class="right9">Total Companies</th>
+		<th class="right9">Total Size</th>
+		<th class="right9">Mgmt Fee <br />Estimate</th>
+		<th class="right9">Invested <br />to date</th>
+		<th class="right9">Reserves</th>
+		<th class="right9">Remaining Investible</th>
+		<th class="right9">As % of <br />Total Size</th>
+		<th class="right9">Close Date</th>
 	</tr>
 	<% @funds.each do |fund| %>
 	<tr>
-		<td><%= link_to "Fund #{fund.number}", organization_fund_path(@organization, fund) %></td>
-		<td class="center"><%= fund.companies.size %></td>
+		<td class="left"><%= link_to "Fund #{fund.number}", organization_fund_path(@organization, fund) %></td>
+		<td class="right"><%= fund.companies.size %></td>
 		<td class="right"><%= nh(fund.size) %></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td><%= nh(fund.management_fee) %></td>
+		<td><%= nh(fund.investments.sum(:investment_amount)) %></td>
+		<td><%= nh(fund.companies.sum(:reserves))%> </td>
+		<td><%= nh(fund.remaining_investible) %></td>
+		<td><%= ph(fund.remaining_investible / fund.size * 100) %></td>
+		<td><%= Date.civil(fund.start_date) %></td>
 	</tr>
 	<% end %>
 </table>
 
-<table class="org_summary top_space">
-	<th>All Companies</th>
-	<th>Owership %</th>
-	<th>Our Total<br />Investment</th>
-	<th>TTM Revenue</th>
-	<th>TTM Monthly<br />Rev Growth</th>
-	<th>Rev/Employee</th>
-	<th>Exp/Employee</th>
-	<th>Cash Runway</th>
-	<th>Fund</th>
+<table class="org_summary top_space right">
+	<th class="left">All Companies</th>
+	<th class="right9">Owership %</th>
+	<th class="right9">Our Total<br />Investment</th>
+	<th class="right9">TTM Revenue</th>
+	<th class="right9">TTM Revenue Growth</th>
+	<th class="right9">TTM Rev/Employee</th>
+	<th class="right9">TTM Exp/Employee</th>
+	<th class="right9">Cash Runway</th>
+	<th class="right9">Fund</th>
 	<% @organization.companies.each do |c| %>
-		<tr>
-			<td><%= link_to c.name, organization_fund_company_path(@organization, c.fund, c) %></td>
-			<td class="right"><%= ph(c.current_investment(:fully_diluted_ownership)) %></td>
-			<td class="right"><%= nh(c.investment_total) %></td>
-			<td class="right"><%= nh(c.ttm_revenue) %></td>
-			<td></td>
-			<td></td>
-			<td></td>
+		<tr >
+			<td class="left"><%= link_to c.name, organization_fund_company_path(@organization, c.fund, c) %></td>
+			<td><%= ph(c.current_investment(:fully_diluted_ownership)) %></td>
+			<td><%= nh(c.investment_total) %></td>
+			<td><%= nh(c.ttm_revenue) %></td>
+			<td><%= ph(c.ttm_revenue_growth) %></td>
+			<td><%= nh(c.ttm_revenue / c.current_financial(:head_count).to_f) %></td>
+			<td><%= nh(c.ttm_expenses / c.current_financial(:head_count).to_f) %></td>
 			<td class="right"><%= nhp(c.cash_runway, 1) %> months</td>
-			<td></td>
+			<td><%= c.fund.number %></td>
 		</tr>
 	<% end %>
 </table>

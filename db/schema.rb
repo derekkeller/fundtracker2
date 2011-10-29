@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111012191044) do
+ActiveRecord::Schema.define(:version => 20111028220614) do
 
   create_table "companies", :force => true do |t|
     t.integer  "fund_id"
@@ -32,6 +32,31 @@ ActiveRecord::Schema.define(:version => 20111012191044) do
   end
 
   create_table "financials", :force => true do |t|
+    t.integer  "company_id"
+    t.integer  "bookings",           :default => 0
+    t.integer  "revenue",            :default => 0
+    t.integer  "cogs",               :default => 0
+    t.integer  "operating_expenses"
+    t.integer  "sg_and_a",           :default => 0
+    t.integer  "r_and_d",            :default => 0
+    t.integer  "depreciation",       :default => 0
+    t.integer  "amortization",       :default => 0
+    t.integer  "interest_income",    :default => 0
+    t.integer  "interest_expense",   :default => 0
+    t.integer  "other_income",       :default => 0
+    t.integer  "other_expense",      :default => 0
+    t.integer  "tax_expense",        :default => 0
+    t.integer  "head_count"
+    t.integer  "integer",            :default => 0
+    t.integer  "debt_balance",       :default => 0
+    t.integer  "cash_balance",       :default => 0
+    t.integer  "cash_burn",          :default => 0
+    t.date     "period"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "forecasts", :force => true do |t|
     t.integer  "company_id"
     t.integer  "bookings",           :default => 0
     t.integer  "revenue",            :default => 0
@@ -95,6 +120,33 @@ ActiveRecord::Schema.define(:version => 20111012191044) do
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reports", :force => true do |t|
+    t.integer  "company_id"
+    t.date     "period"
+    t.text     "summary"
+    t.integer  "summary_status"
+    t.text     "management"
+    t.integer  "management_status"
+    t.text     "product"
+    t.integer  "product_status"
+    t.text     "marketing"
+    t.integer  "marketing_status"
+    t.text     "business_development"
+    t.integer  "business_development_status"
+    t.text     "competition"
+    t.integer  "competition_status"
+    t.text     "sales"
+    t.integer  "sales_status"
+    t.text     "finance"
+    t.integer  "finance_status"
+    t.text     "legal"
+    t.integer  "legal_status"
+    t.text     "other"
+    t.integer  "other_status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

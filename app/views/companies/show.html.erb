@@ -157,19 +157,9 @@
 			<div id="company_summary_box_wide_content_value"><%= ph(@company.annual_net_margin(2011)*100, 1) %></div>
 		</div>
 	</div>
-
 </div>
-
 
 <br />
-<div class='back_footer'>
-	<%= link_to 'View Financials', organization_fund_company_financials_path(@organization, @fund, @company) %> |
-	<%= link_to 'View Investments', organization_fund_company_investments_path(@organization, @fund, @company) %>
-</div>
-<div class='back_footer'>
-	<%= link_to 'Add Financials', new_organization_fund_company_financial_path(@organization, @fund, @company) %> |
-	<%= link_to 'Add Investment', new_organization_fund_company_investment_path(@organization, @fund, @company) %>
-</div>
 <div class='back_footer'>
 	<%= link_to 'Edit', edit_organization_fund_company_path(@organization, @fund)%> | 
 	<%= link_to 'Back', organization_fund_path(@organization, @fund) %>

@@ -1,6 +1,17 @@
-<tr>
-	<td></td>
+<tr class="theight theader bold">
+	<td>
+
+			<%= link_to '<<', company_financial_move_through_time_path(@company, 0, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :major => 1) %>
+
+			<%= link_to '<', company_financial_move_through_time_path(@company, 0, :organization_id => params[:organization_id], :fund_id => params[:fund_id]) %>
+
+	</td>
 	<% @financial_summary.financial_set.each do |fs| %>
-		<td><%= what_quarter(fs.label[0]) %></td>
+		<td style="text-align: right"><%= what_quarter(fs.label[0]) %></td>
 	<% end %>
+
+	<td width="50" align="right">
+		<%= link_to ">", company_financial_move_through_time_path(@company.id, 1, :organization_id => params[:organization_id], :fund_id => params[:fund_id]) %>
+		<%= link_to '>>', company_financial_move_through_time_path(@company, 1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :major => 1) %>
+	</td>
 </tr>

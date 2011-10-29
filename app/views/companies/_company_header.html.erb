@@ -1,0 +1,9 @@
+<div class="dropdown_header_right">
+	<ul>
+		<li><%= link_to 'Summary', organization_fund_company_path(@organization, @fund, @company) %></li>
+		<li><%= link_to 'Financials', organization_fund_company_financials_path(@organization, @fund, @company) %></li>
+		<li>Metrics</li>			
+		<li><%= link_to 'Investments', organization_fund_company_investments_path(@organization, @fund, @company) %></li>
+		<li>Documents</li>
+	</ul>
+</div>

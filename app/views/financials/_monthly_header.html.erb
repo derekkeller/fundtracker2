@@ -1,5 +1,27 @@
-<% @financial_summary.period_set.each do |ps| %>
-	<td class="right">
-		<%= ps.label[0].strftime("%b %y") %>
+<tr class="theight theader bold">
+	<td>
+		<%= link_to '<<', company_financial_move_through_time_path(@company, 0, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :major => 1) %>
+
+		<%= link_to '<', company_financial_move_through_time_path(@company, 0, :organization_id => params[:organization_id], :fund_id => params[:fund_id]) %>
 	</td>
+<% @financial_summary.financial_set.each do |fs| %>
+	<% if session[:view_type] == 'actual' %>
+		<td style="text-align: right">
+			<%= link_to(fs.label[0].strftime("%b %y"), edit_organization_fund_company_financial_path(@organization, @fund, @company, @company.financials.find_by_period("#{fs.label[0]}") ) ) rescue fs.label[0].strftime("%b %y") %>
+		</td>
+	<% elsif session[:view_type] == 'forecast' %>
+		<td style="text-align: right">
+			<%= link_to(fs.label[0].strftime("%b %y"), edit_organization_fund_company_forecast_path(@organization, @fund, @company, @company.financials.find_by_period("#{fs.label[0]}") ) ) rescue fs.label[0].strftime("%b %y") %>
+		</td>
+	<% else %>
+		<td style="text-align: right">
+			<%= fs.label[0].strftime("%b %y") %>
+		</td>
+	<% end %>
 <% end -%>
+<td width="50" align="right">
+	<%= link_to ">", company_financial_move_through_time_path(@company.id, 1, :organization_id => params[:organization_id], :fund_id => params[:fund_id]) %>
+	<%= link_to '>>', company_financial_move_through_time_path(@company, 1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :major => 1) %>
+</td>
+
+</tr>

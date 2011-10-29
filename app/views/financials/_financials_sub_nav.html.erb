@@ -1,8 +1,21 @@
-<span class="<%= check_view(session[:view_period], 'year') %>">
-<%= link_to "Year", financial_change_view_period_path(1, :company_id => @company.id), :method => :put %></span>
+<h2><%= @company.name %> Financials</h2>
 
-<span class="<%= check_view(session[:view_period], 'quarter') %>">
-<%= link_to "Quarter", financial_change_view_period_path(2, :company_id => @company.id) %></span>
+<div style="font-size: 13px">
+	Type:
+	<span class="<%= check_view(session[:view_type], 'actual') %>"><%= link_to "Actual", financial_change_view_type_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span>
 
-<span class="<%= check_view(session[:view_period], 'month') %>">
-<%= link_to "Month", financial_change_view_period_path(3, :company_id => @company.id) %></span>
+	<span class="<%= check_view(session[:view_type], 'forecast') %>"><%= link_to "Forecast", financial_change_view_type_path(2, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span>
+	
+	<span class="<%= check_view(session[:view_type], 'sales') %>"><%= link_to "% Sales", financial_change_view_type_path(5, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span><br />
+
+	Period:
+	<span class="<%= check_view(session[:view_period], 'year') %>">
+	<%= link_to "Year", financial_change_view_period_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span>
+
+	<span class="<%= check_view(session[:view_period], 'quarter') %>">
+	<%= link_to "Quarter", financial_change_view_period_path(2, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span>
+
+	<span class="<%= check_view(session[:view_period], 'month') %>">
+	<%= link_to "Month", financial_change_view_period_path(3, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span>	
+</div>
+<br />

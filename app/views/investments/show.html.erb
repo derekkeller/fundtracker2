@@ -1,11 +1,14 @@
 <h2><%= @company.name %> Investments</h2>
 <h2><%= @investment.name %> Investment Detail</h2>
 <div id="advancement_container">
-	<div id="previous_button"><%= link_to "< PREVIOUS", organization_fund_company_investment_path(@organization, @fund, @company, @company.previous_investment(@investment.id)) rescue "< PREVIOUS" %>
+
+	<div id="previous_button"><%= link_to "< PREVIOUS", organization_fund_company_investment_path(@organization, @fund, @company, @company.previous_record("investments", @investment.id)) rescue "< PREVIOUS" %>
 	</div>
+	
 	<div id="next_button">
-	<%= link_to "NEXT >", organization_fund_company_investment_path(@organization, @fund, @company, @company.next_investment(@investment.id)) rescue "NEXT >" %>
+	<%= link_to "NEXT >", organization_fund_company_investment_path(@organization, @fund, @company, @company.next_record("investments", @investment.id)) rescue "NEXT >" %>
 	</div>
+
 </div>
 
 <div id="company_summary_container">

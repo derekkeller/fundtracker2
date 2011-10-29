@@ -1,0 +1,7 @@
+<h1>Edit Financial</h1>
+
+<%= form_for [@organization, @fund, @company, @financial] do |f| %>
+
+	<%= render :partial => 'form', :object => f %>
+	
+<% end %>

@@ -1,23 +1,34 @@
 class Company < ActiveRecord::Base
 
-  belongs_to :fund
+  belongs_to :fund, :dependent => :destroy
   has_many :investments
   has_many :financials
-  has_many :balances
+  has_many :forecasts
+  has_many :reports
   has_many :users
 
-  def next_investment(id_number)
-    current_date = self.investments.find(id_number).date
-    return self.investments.where("date > ?", current_date).first.id
+  def next_record(class_name, id_number)
+    current_date = self.try(class_name).find(id_number).date
+    return self.try(class_name).where("date > ?", current_date).first.id
   rescue
     nil    
   end
 
-  def previous_investment(id_number)
-    current_date = self.investments.find(id_number).date
-    return self.investments.where("date < ?", current_date).last.id
+  def previous_record(class_name, id_number)
+    current_date = self.try(class_name).find(id_number).date
+    return self.try(class_name).where("date < ?", current_date).last.id
   rescue
     nil
+  end
+
+  def next_report(id_number)
+    current_date = Report.find(id_number).period
+    return Report.where("period > ?", current_date).last.id
+  end
+
+  def previous_report(id_number)
+    current_date = Report.find(id_number).period
+    return Report.where("period < ?", current_date).first.id
   end
 
   def investment_total
@@ -79,7 +90,8 @@ class Company < ActiveRecord::Base
     total_expenses = []
     expense_items = [ :cogs,
                       :operating_expenses,
-                      :sg_and_a, :r_and_d,
+                      :sg_and_a,
+                      :r_and_d,
                       :depreciation,
                       :amortization,
                       :interest_expense,
@@ -89,14 +101,37 @@ class Company < ActiveRecord::Base
     starting = Date.civil(year)
     ending = starting.end_of_year    
 
-    expense_items.each do |exp|
-      total_expenses << self.financials.sum("#{exp}", :conditions => ['period between ? AND ?', starting, ending])
+    expense_items.each do |item|
+      total_expenses << self.financials.sum("#{item}", :conditions => ['period between ? AND ?', starting, ending])
     end
 
     total_expenses.sum
   end
 
 # // TTM //
+
+  def ttm_expenses
+    total_expenses = []
+    expense_items = [ :cogs,
+                      :operating_expenses,
+                      :sg_and_a,
+                      :r_and_d,
+                      :depreciation,
+                      :amortization,
+                      :interest_expense,
+                      :other_expense,
+                      :tax_expense]
+    
+    ending = Date.today.months_ago(1).end_of_month                  
+    starting = ending.years_ago(1) + 1
+    
+    expense_items.each do |item|
+      total_expenses << self.financials.sum("#{item}", :conditions => ['period between ? AND ?', starting, ending])
+    end  
+    
+    total_expenses.sum
+    
+  end
 
   def ttm_revenue
     ending = Date.today.beginning_of_month - 1
