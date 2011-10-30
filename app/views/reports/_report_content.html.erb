@@ -1,7 +1,10 @@
-<h2>Report for <%= @report.period %></h2><div id="advancement_container">
+<h2>Report for <%= @report.period %></h2>
+
+<div id="advancement_container">
 	<div id="previous_button">
 		<%= link_to "< PREVIOUS", organization_fund_company_report_path(@organization, @fund, @company, @company.previous_report(@report.id)) rescue "< PREVIOUS" %>
 	</div>
+
 	<div id="next_button">
 		<%= link_to "NEXT >", organization_fund_company_report_path(@organization, @fund, @company, @company.next_report(@report.id)) rescue "NEXT >" %>
 	</div>
@@ -9,7 +12,17 @@
 	
 <% @report_items.each do |item| %>
 	<div class="report_item">
-		<div class="report_item_title"><%= item.humanize %> | <%= @report.try("#{item}" + "_status") %></div>
+		<div class="report_flag">
+			<% if Report::STATUS[@report.try(item + "_status")] == "Green" %>
+				<%= image_tag('green.png') %>
+			<% elsif Report::STATUS[@report.try(item + "_status")] == "Yellow" %>
+				<%= image_tag('yellow.png') %>
+			<% elsif Report::STATUS[@report.try(item + "_status")] == "Red"  %>
+				<%= image_tag('red.png') %>
+			<% else %>
+			<% end %>
+		</div>
+		<div class="report_item_title"><%= item.humanize %></div>
 		<div class="report_item_content"><%= @report.try(item) %></div>
 	</div>
 <% end %>

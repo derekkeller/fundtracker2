@@ -15,43 +15,52 @@
 	</div>
 	<div>
 		<%= f.label :summary %>
-		<%= f.select( :summary_status, options_for_select([ ["Green", 0], ["Yellow", 1], ["Red", 2] ])	) %><br />
+ 		<%= f.select( :summary_status, options_for_select(Report::STATUS.invert.to_a,  @report.summary_status), :include_blank => true ) %><br />
 		<%= f.text_area :summary, :size => "110x4" %>
 	</div>
 	<div>
-		<%= f.label :management %><br />
+		<%= f.label :management %>
+ 		<%= f.select( :management_status, options_for_select(Report::STATUS.invert.to_a,  @report.management_status), :include_blank => true ) %><br />
 		<%= f.text_area :management, :size => "110x4" %>
 	</div>
 	<div>
-		<%= f.label :product %><br />
+		<%= f.label :product %>
+ 		<%= f.select( :product_status, options_for_select(Report::STATUS.invert.to_a,  @report.product_status), :include_blank => true ) %><br />		
 		<%= f.text_area :product, :size => "110x4" %>
 	</div>	
 	<div>
-		<%= f.label :marketing %><br />
+		<%= f.label :marketing %>
+ 		<%= f.select( :marketing_status, options_for_select(Report::STATUS.invert.to_a,  @report.marketing_status), :include_blank => true ) %><br />
 		<%= f.text_area :marketing, :size => "110x4" %>
 	</div>	
 	<div>
-		<%= f.label :sales %><br />
+		<%= f.label :sales %>
+ 		<%= f.select( :sales_status, options_for_select(Report::STATUS.invert.to_a,  @report.sales_status), :include_blank => true ) %><br />		
 		<%= f.text_area :sales, :size => "110x4" %>
 	</div>
 	<div>
-		<%= f.label :business_development %><br />
+		<%= f.label :business_development %>
+ 		<%= f.select( :business_development_status, options_for_select(Report::STATUS.invert.to_a,  @report.business_development_status), :include_blank => true ) %><br />		
 		<%= f.text_area :business_development, :size => "110x4" %>
 	</div>
 	<div>
-		<%= f.label :competition %><br />
+		<%= f.label :competition %>
+ 		<%= f.select( :competition_status, options_for_select(Report::STATUS.invert.to_a,  @report.competition_status), :include_blank => true ) %><br />		
 		<%= f.text_area :competition, :size => "110x4" %>
 	</div>	
 	<div>
-		<%= f.label :finance %><br />
+		<%= f.label :finance %>
+ 		<%= f.select( :finance_status, options_for_select(Report::STATUS.invert.to_a,  @report.finance_status), :include_blank => true ) %><br />		
 		<%= f.text_area :finance, :size => "110x4" %>
 	</div>
 	<div>
-		<%= f.label :legal %><br />
+		<%= f.label :legal %>
+ 		<%= f.select( :legal_status, options_for_select(Report::STATUS.invert.to_a,  @report.legal_status), :include_blank => true ) %><br />		
 		<%= f.text_area :legal, :size => "110x4" %>
 	</div>
 	<div>
-		<%= f.label :other %><br />
+		<%= f.label :other %>
+ 		<%= f.select( :other_status, options_for_select(Report::STATUS.invert.to_a,  @report.other_status), :include_blank => true ) %><br />		
 		<%= f.text_area :other, :size => "110x4" %>
 	</div>
 	<%= f.submit %>

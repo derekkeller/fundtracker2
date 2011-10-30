@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_filter :load_paths
+  before_filter :load_paths, :except => :show_filtered
 
   def new
     @report = Report.new
@@ -25,14 +25,12 @@ class ReportsController < ApplicationController
 
   def show_filtered
     @report_items = ["summary", "product", "management", "marketing", "business_development", "competition", "sales", "finance", "legal", "other"]
-    if params[:date][:report_year].present? &&
-       params[:date][:report_month].present?
-       
-      @filtered_report = Report.last
-    else
-      report_date = Date.today.beginning_of_month
-      @filtered_report = Report.last
-    end
+    
+    @organization = Organization.first
+    @fund = Fund.first
+    @company = Company.first
+
+    @report = @company.reports.where("period = ?", Date.civil(params[:date][:report_year].to_i, params[:date][:report_month].to_i, 1)).first
 
     render :update do |page|
       page.replace_html :report_holder, :partial => "report_content"

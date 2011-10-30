@@ -18,7 +18,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    reset_session
+    # reset_session
     session[:crement_period] = Date.today
     @company = @fund.companies.find(params[:id])
   end
