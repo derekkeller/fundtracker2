@@ -38,5 +38,22 @@ module ApplicationHelper
     Company.all.map { |c| [c.name, c.id]}.unshift(['All Companies',''])
   end
 
+  def check_view(a, b)
+    if a == b
+      'bold'
+    else
+      ''
+    end    
+  end
+  
+  # check params for what kind of view we're in (actual, forecast) and make the current bold
+
+  def check_report(a, b)
+    if (a - 1) == b
+      'month_selected'
+    else
+      'month_plain'
+    end    
+  end
 
 end

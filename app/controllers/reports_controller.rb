@@ -21,6 +21,9 @@ class ReportsController < ApplicationController
   def show    
     @report_items = ["summary", "product", "management", "marketing", "business_development", "competition", "sales", "finance", "legal", "other"]
     @report = @company.reports.find(params[:id])
+
+    @report_months = [[0,"JAN"], [1, "FEB"], [2, "MAR"], [3, "APR"], [4, "MAY"], [5, "JUN"], [6, "JUL"], [7, "AUG"], [8, "SEP"], [9, "OCT"], [10, "NOV"], [11, "DEC"]]
+
   end
 
   def show_filtered

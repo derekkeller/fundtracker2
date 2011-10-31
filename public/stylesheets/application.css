@@ -1,3 +1,37 @@
+/* REPORT MONTH MENU */
+
+.report_month_menu {
+	padding-top: 9px;
+	height: 24px;
+	font-size: .8em;
+	border-top: 1px solid #B9B9B9;
+	border-bottom: 1px solid #B9B9B9;
+}
+
+.month_plain {
+	float: left;
+	color: #B9B9B9;
+	margin-right: 10px;
+	height: 30px;}	
+	.month_plain a:link, .month_plain a:visited {
+		padding: 5px;
+		border: 1px solid #FFF;
+		text-decoration: none;}
+	.month_plain a:hover {
+		padding: 5px;
+		border: 1px solid #659EC2;}
+
+.month_selected {
+	float: left;
+	margin-right: 10px;
+	height: 30px;}
+	.month_selected a:link, .month_selected a:visited {
+		padding: 5px;
+		border: 1px solid #659EC2;
+		text-decoration: none;
+		background-color: #DEECF5;}
+
+
 .report_flag {
 	float: right;
 	margin-right: 20px;

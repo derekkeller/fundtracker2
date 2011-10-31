@@ -12,6 +12,14 @@
 		<%= submit_tag :search %>
 <% end %>
 
+<div class="report_month_menu">
+	<% @report_months.each do |position, month| %>
+		<div class="<%= check_report(@report.period.month, position) %>">
+			<%= link_to month, organization_fund_company_report_path(@organization, @fund, @company, @company.reports.where("period = ?", @report.period.beginning_of_year.months_since("#{position}".to_i)).first.id) rescue month %>			
+		</div>
+	<% end %>
+</div>
+
 <div id="report_holder">
 
 	<%= render 'report_content' %>

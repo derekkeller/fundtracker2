@@ -12,14 +12,4 @@ module FinancialsHelper
     end    
   end
 
-  def check_view(a, b)
-    if a == b
-      'bold'
-    else
-      ''
-    end    
-  end
-  
-  # check params for what kind of view we're in (actual, forecast) and make the current bold
-
 end
