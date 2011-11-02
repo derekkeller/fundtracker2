@@ -56,4 +56,12 @@ module ApplicationHelper
     end    
   end
 
+  def check_investment(a, b)
+    if (a - 1) == b
+      'month_selected'
+    else
+      'month_plain'
+    end    
+  end
+
 end

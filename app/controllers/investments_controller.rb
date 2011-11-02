@@ -20,6 +20,7 @@ class InvestmentsController < ApplicationController
 
   def show
     @investment = @company.investments.find(params[:id])
+    @investments = @company.investments.all
   end
 
   def edit

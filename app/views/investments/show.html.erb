@@ -1,5 +1,23 @@
 <h2><%= @company.name %> Investments</h2>
 <h2><%= @investment.name %> Investment Detail</h2>
+
+<div class="report_month_menu" style="width: 100%">
+	<div class="month_plain">
+		<%= link_to 'All Investments', organization_fund_company_investments_path(@organization, @fund, @company) %>
+	</div>
+	<% @investments.each do |investment| %>
+		<div class="<%= check_investment(@investment.id, investment.id - 1) %>">
+			<%= link_to investment.name, organization_fund_company_investment_path(@organization, @fund, @company, investment.id) rescue investment %>			
+		</div>
+	<% end %>
+	<div class="month_plain" style="float: right">
+		<%= link_to 'Add Investment', new_organization_fund_company_investment_path(@organization, @fund, @company) %>
+	</div>
+	<div class="month_plain" style="float: right">
+		<%= link_to 'Edit', edit_organization_fund_company_investment_path(@organization, @fund, @company, @investment) %>
+	</div>
+</div>
+<br />
 <div id="advancement_container">
 
 	<div id="previous_button"><%= link_to "< PREVIOUS", organization_fund_company_investment_path(@organization, @fund, @company, @company.previous_record("investments", @investment.id)) rescue "< PREVIOUS" %>
@@ -92,6 +110,6 @@
 </div>
 
 <div class='back_footer'>
-	<%= link_to 'Edit', edit_organization_fund_company_investment_path(@organization, @fund, @company, @investment)%> | 
+	<%= link_to 'Edit', edit_organization_fund_company_investment_path(@organization, @fund, @company, @investment) %> | 
 	<%= link_to 'Back', organization_fund_company_investments_path(@organization, @fund, @company) %>
 </div>

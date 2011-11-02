@@ -84,7 +84,11 @@ class ApplicationController < ActionController::Base
   end
 
   def get_quarters(period)
-    q4 = period.beginning_of_quarter
+    q8 = period.beginning_of_quarter
+    q7 = (q8 - 1).beginning_of_quarter
+    q6 = (q7 - 1).beginning_of_quarter
+    q5 = (q6 - 1).beginning_of_quarter
+    q4 = (q5 - 1).beginning_of_quarter
     q3 = (q4 - 1).beginning_of_quarter
     q2 = (q3 - 1).beginning_of_quarter
     q1 = (q2 - 1).beginning_of_quarter
@@ -93,14 +97,19 @@ class ApplicationController < ActionController::Base
       [q1, q1.end_of_quarter],
       [q2, q2.end_of_quarter],
       [q3, q3.end_of_quarter],
-      [q4, q4.end_of_quarter]
+      [q4, q4.end_of_quarter],
+      [q5, q5.end_of_quarter],      
+      [q6, q6.end_of_quarter],
+      [q7, q7.end_of_quarter],
+      [q8, q8.end_of_quarter],
     ]
+    
   end
 
   def get_years(period)    
     years = []
     years[0] = [period.beginning_of_year, period.end_of_year]
-    2.times do
+    3.times do
       years << [years.last[0].years_ago(1).beginning_of_year, years.last[1].years_ago(1).end_of_year]
     end
     return years.reverse

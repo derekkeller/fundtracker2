@@ -18,6 +18,12 @@
 			<%= link_to month, organization_fund_company_report_path(@organization, @fund, @company, @company.reports.where("period = ?", @report.period.beginning_of_year.months_since("#{position}".to_i)).first.id) rescue month %>			
 		</div>
 	<% end %>
+	<div class="month_plain" style="float: right">
+		<%= link_to "Add Report", new_organization_fund_company_report_path(@organization, @fund, @company) %>
+	</div>
+	<div class="month_plain" style="float: right">
+		<%= link_to "Edit", edit_organization_fund_company_report_path(@organization, @fund, @company, @report) %>
+	</div>
 </div>
 
 <div id="report_holder">
