@@ -37,6 +37,7 @@ class ReportsController < ApplicationController
 
     render :update do |page|
       page.replace_html :report_holder, :partial => "report_content"
+      page << recolor_month(params[:date][:report_month].to_i - 1)
     end    
   end
 

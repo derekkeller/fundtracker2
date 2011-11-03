@@ -13,10 +13,10 @@ class FinancialsController < ApplicationController
     case @view_period
     when 'year'
       @periods = get_year(session[:crement_period])
-      @header_row_partial = "yearly_header"
+      @header_row_partial = "year_header"
     when 'quarter'
       @periods = get_quarter(session[:crement_period])
-      @header_row_partial = "quarterly_header"
+      @header_row_partial = "quarter_header"
     when 'month'
       @periods = get_month(session[:crement_period])
       @header_row_partial = "month_header"
@@ -26,12 +26,12 @@ class FinancialsController < ApplicationController
     when 'forecast'
       @financial_summary = []
       @fund.companies.each do |company|
-        @financial_summary = ForecastSummary.new(@periods, company)        
+        @financial_summary << ForecastSummary.new(@periods, company)        
       end
     when 'sales'
       @financial_summary = []
       @fund.companies.each do |company|
-        @financial_summary = SalesPercentageSummary.new(@periods, company)
+        @financial_summary << SalesPercentageSummary.new(@periods, company)
       end
     else #actuals
       @financial_summary = []

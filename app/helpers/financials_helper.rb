@@ -1,15 +1,15 @@
 module FinancialsHelper
 
-  def what_quarter(d)
-    if (1..3).include?(d.month)
-      "Q1 #{d.year}"
-    elsif (4..6).include?(d.month)
-      "Q2 #{d.year}"
-    elsif (7..9).include?(d.month)
-      "Q3 #{d.year}"
+  def what_quarters(p)
+    if (1..3).include?(p.month)
+      "Q1 #{p.year}"
+    elsif (4..6).include?(p.month)
+      "Q2 #{p.year}"
+    elsif (7..9).include?(p.month)
+      "Q3 #{p.year}"
     else
-      "Q4 #{d.year}"
-    end    
+      "Q4 #{p.year}"
+    end
   end
 
 end

@@ -14,7 +14,7 @@
 
 <div class="report_month_menu">
 	<% @report_months.each do |position, month| %>
-		<div class="<%= check_report(@report.period.month, position) %>">
+		<div id="<%= position %>" class="<%= check_report(@report.period.month, position) %>">
 			<%= link_to month, organization_fund_company_report_path(@organization, @fund, @company, @company.reports.where("period = ?", @report.period.beginning_of_year.months_since("#{position}".to_i)).first.id) rescue month %>			
 		</div>
 	<% end %>
@@ -36,3 +36,12 @@
 	<%= link_to "Edit", edit_organization_fund_company_report_path(@organization, @fund, @company, @report) %> |
 	<%= link_to "Back", organization_fund_company_reports_path(@organization, @fund, @company) %>
 </div>
+
+<script>
+
+	function recolor_month(selected_period) {
+		$('div.report_month_menu div').removeClass('month_selected').addClass('month_plain')
+		$('.report_month_menu div#"#{selected_period"').addClass('month_selected')
+	}
+
+</script>
