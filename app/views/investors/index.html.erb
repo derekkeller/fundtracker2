@@ -1,0 +1,38 @@
+<div class='headers'>
+	<h1>Investors</h1>
+</div>
+
+<table>
+	<tr class='header_row'>
+		<th class='left'>Investment Group</th>
+		<th class='left'>Status</th>
+		<th class='left'>Stage</th>
+		<th class='left'>Assets</th>
+		<th class='left'>Potential Commitment</th>
+		<th class='left'>Expected Close</th>
+		<th class='left'>Probability</th>
+		<th class='left'>Closed Commitment</th>
+		<th class='left'></th>
+		<th class='left'></th>
+	</tr>
+	<% @investors.each do |investor| %>
+	<tr class="<%= cycle('odd','even') %>">
+		<td class='left'><%= link_to investor.name, organization_investor_path(@organization, investor) %></td>
+		<td class='left'><%= truncate(investor.status, :length => 60, :omission => "...") %></td>
+		<td class='left'><%= investor.stage %></td>
+		<td class='left'><%= nh(investor.assets) %></td>
+		<td class='left'><%= nh(investor.expected_commitment) %></td>
+		<td class='left'><%= investor.expected_close %></td>
+		<td class='left'><%= investor.probability %></td>
+		<td class='left'><%= investor.actual_commitment %></td>
+		<td class='left'><%= investor.actual_close %></td>		
+		<td class='left'><%= link_to 'Edit', edit_investor_path(investor) %></td>
+		<td class='left'><%= link_to 'Destroy', investor, :confirm => "Are you sure?", :method => :delete %></td>
+	</tr>
+	<% end %>
+</table>
+
+<div class='back_footer'>
+	<%= link_to 'Add Investor', new_organization_investor_path(@organization) %> |
+	<%= link_to 'Back', organization_path(@organization) %>
+</div>

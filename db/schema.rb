@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111028220614) do
+ActiveRecord::Schema.define(:version => 20111102184134) do
+
+  create_table "assignments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "companies", :force => true do |t|
     t.integer  "fund_id"
@@ -27,6 +34,17 @@ ActiveRecord::Schema.define(:version => 20111028220614) do
     t.integer  "fund_return", :default => 0
     t.text     "notes"
     t.boolean  "active",      :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.string   "event_type"
+    t.date     "date"
+    t.text     "notes"
+    t.integer  "investor_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -117,9 +135,36 @@ ActiveRecord::Schema.define(:version => 20111028220614) do
     t.datetime "updated_at"
   end
 
+  create_table "investors", :force => true do |t|
+    t.string   "name"
+    t.string   "investor_type"
+    t.integer  "organization_id"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zipcode"
+    t.integer  "stage"
+    t.text     "status"
+    t.integer  "assets"
+    t.integer  "expected_commitment"
+    t.date     "expected_close"
+    t.integer  "actual_commitment"
+    t.integer  "actual_close"
+    t.string   "probability"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participants", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -147,6 +192,33 @@ ActiveRecord::Schema.define(:version => 20111028220614) do
     t.integer  "legal_status"
     t.text     "other"
     t.integer  "other_status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "task_users", :force => true do |t|
+    t.integer  "task_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.date     "due_date"
+    t.boolean  "completed"
+    t.date     "completed_date"
+    t.integer  "task_owner_id"
+    t.integer  "event_id"
+    t.integer  "investor_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

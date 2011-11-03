@@ -1,3 +1,8 @@
+.temp_holder {
+	width: 1000px;
+	position: relative;
+}
+
 /* REPORT MONTH MENU */
 
 .report_month_menu {
@@ -684,4 +689,282 @@ table.org_summary	th {
 
 .top_space {
 	margin-top: 40px;
+}
+
+
+/* PORTED FROM THE OLD APP */
+
+.left {
+	text-align: left;
+	padding-right: 20px;
+}
+
+.leftfirst {
+	text-align: left;
+	width: 150px;
+}
+
+.leftnotes {
+	text-align: left;
+	width: 175px;
+}
+
+.right {
+	text-align: right;
+}
+
+.header_row {
+	height: 30px;
+	font-size: .9em;
+	border-bottom: 1px solid #CCC;
+	background-color: #E0EAF1;
+}
+
+.odd {
+	height: 30px;
+	font-size: .9em;
+	border-bottom: 1px solid #CCC;
+}
+
+.even {
+	height: 30px;
+	font-size: .9em;
+	border-bottom: 1px solid #CCC;
+}
+
+.body_container {
+	margin-top: 10px;
+	padding: 20px;
+	background-color: #FFF;
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 5px;
+}
+
+.body_container a:link, .body_container a:visited {
+	color: #666;
+	text-decoration: none;
+}
+
+.body_container a:hover {
+	color: #666;
+	text-decoration: underline;
+}
+
+#investor_holder {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border-bottom: solid 1px #666;
+}
+
+#investor_menu {
+	color: #FFF;
+	width: 1090px;
+	height: 30px	;
+	margin: 0 auto;
+}
+
+#investor_menu ul {
+	list-style: none;
+}
+
+#investor_menu ul li {
+	float: left;
+	margin-right: 20px;
+}
+
+#investor_menu ul li a:link, a:visited {
+	text-decoration: none;
+}
+
+#investor_menu ul li a:hover {
+	color: #D27119;
+	text-decoration: underline;
+}
+
+.headers h1 {
+	font-size: 1.6em;	
+	color: #1B9D95;
+	font-weight: bold;
+	margin: 10px 0 1ex 0;	
+	border-bottom: solid 2px #1B9D95;
+}
+
+.headers h2 {
+	font-size: 1.2em;
+	color: #1B9D95;
+	font-weigth: bold;
+	margin: 20px 0 0 0;	
+	border-bottom: dashed 1px #1B9D95;
+}
+
+.back_footer {
+	margin-top: 20px;
+	border-top: solid 1px #1B9D95;	
+}
+
+.investor_main_container {
+	float: left;
+	margin-bottom: 20px;
+}
+
+.investor_container {
+	float: left;
+	padding: 5px 5px 0 5px;
+	width: 650px;
+}
+
+.date_container {
+	float: right;
+	padding: 5px 5px 0 5px;
+	width: 325px;
+}
+
+.investor_container #object {
+	float: left;
+	width: 300px;
+	margin-bottom: 5px;
+	font-size: .9em;
+}
+
+.investor_container #object_status {
+	float: left;
+	width: 600px;
+	margin-bottom: 5px;
+	font-size: .9em;
+}
+
+.investor_container #left {
+	background-color: #E0EAF1;
+	border-radius: 3px;
+	float: left;
+	width: 156px;
+	line-height: 25px;
+	text-indent: 5px;
+	font-weight: bold;
+}
+
+.investor_container #left_status {
+	background-color: #E0EAF1;
+	border-radius: 3px;
+	float: left;
+	width: 156px;
+	line-height: 25px;
+	text-indent: 5px;
+	font-weight: bold;
+	height: 100px;
+}
+
+
+.investor_container #right {
+	float: left;
+	line-height: 25px;
+	text-indent: 5px;
+}
+
+.investor_container #right_status {
+	float: left;
+	line-height: 25px;
+	width: 437px;
+	padding-left: 5px;
+}
+
+#error_explanation {
+	padding: 5px;
+	border: 1px solid red;
+	background-color: #E0EAF1;
+}
+
+
+/* EVENT SHOW */
+
+#event_holder {
+	float: left;
+}
+
+#event_detail {
+	padding: 0;
+}
+
+#event_notes_space {
+	padding-top: 10px;
+	float: left;
+	width: 784px;
+}
+
+#event_detail_right_holder {
+	padding-top: 10px;
+	float: right;
+	width: 210px;
+}
+
+#event_detail_right_header {
+	padding: 2px;
+	padding-left: 10px;
+	background-color: #F5E0CC;
+	border: 1px solid #CC6600;
+	border-radius: 3px;
+}
+
+#event_detail_right ul {
+/*	list-style: none;*/
+	margin-top: 5px;
+	list-style-type: square;
+	padding-left: 30px;
+}
+
+#event_detail_right ul li {
+}
+
+/* TASK SHOW */
+
+#task_main {
+	float: left;
+	margin-bottom: 10px;
+}
+
+#task_left {
+	float: left;
+	width: 280px;
+/*	border: dashed 1px #CCC;*/
+}
+
+#task_left_box {
+	padding: 0;
+/*	border: dashed 1px #CCC;*/
+	width: 100%;
+	float: left	;
+}
+
+#task_item {
+	padding: 2px;
+	padding-left: 10px;
+	margin-bottom: 5px;
+	background-color: #F5E0CC;
+	border: 1px solid #CC6600;
+	border-radius: 3px;
+	width: 120px;
+	float: left;
+}
+
+#task_item_detail {
+	padding: 2px;
+	padding-left: 10px;
+	float: left;
+}
+
+#task_item_detail ul {
+	margin: 0px;
+	list-style-type: square;
+	padding-left: 17px;
+}
+
+#task_item_detail ul li {
+}
+
+#task_right {
+	float: right;
+	width: 714px;
 }

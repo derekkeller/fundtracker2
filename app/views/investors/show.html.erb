@@ -1,0 +1,185 @@
+<div class='headers'>
+	<h1><%= @investor.name %></h1>
+</div>
+
+<div class='investor_main_container'>
+<div class='investor_container'>
+	<div id='object_status'>
+		<div id='left_status'>
+			Status
+		</div>
+		<div id='right_status'>
+			<%= truncate(@investor.status, :length => 300, :omission => "...") %>
+		</div>
+	</div>
+	<div id='object'>
+		<div id='left'>
+			Stage
+		</div>
+		<div id='right'>
+			<%= @investor.stage %>
+		</div>
+	</div>
+	<div id='object'>
+		<div id='left'>
+			Potential Commitment
+		</div>
+		<div id='right'>
+			<%= nh(@investor.expected_commitment) %>
+		</div>
+	</div>
+	<div id='object'>
+		<div id='left'>
+			Probability
+		</div>
+		<div id='right'>
+			<%= @investor.probability.humanize %>
+		</div>
+	</div>
+	<div id='object'>
+		<div id='left'>
+			Total Assets
+		</div>
+		<div id='right'>
+			<%= nh(@investor.assets) %>
+		</div>
+	</div>
+	<div id='object'>
+		<div id='left'>
+			Expected Close
+		</div>
+		<div id='right'>
+			<%= @investor.expected_close %>
+		</div>
+	</div>
+	<div id='object'>
+		<div id='left'>
+			Closed Commitment
+		</div>
+		<div id='right'>
+			<%= nh(@investor.actual_commitment) %>
+		</div>
+	</div>
+</div>
+<div class='date_container'>
+	<div id='right'>
+		<strong>Address</strong><br />
+		<%= @investor.street %><br />
+		<%= "#{@investor.city}, #{@investor.state} #{@investor.zipcode}"%>
+		<p>
+			<%= link_to 'Edit', edit_investor_path %> | <%= link_to "Destroy", @investor, :confirm => "Are you sure?", :method => :delete %>
+		</p>
+	</div>
+</div>
+</div>
+
+<div class='temp_holder'>
+
+<div class='headers'>
+	<h2>Contacts</h2>
+</div>
+
+	<table>
+		<tr class='header_row'>
+			<th class='leftfirst'>Name</th>
+			<th class='left'>Email</th>
+			<th class='left'>Phone</th>
+			<th class='left'>Notes</th>
+		</tr>
+		<% @users.each do |user| %>
+		<tr class="<%= cycle('odd','even') %>">
+			<td class='left'><%= [user.first_name, user.last_name].join(" ") %></td>
+			<td class='left'><%= user.email %></td>
+			<td class='left'><%= user.phone %></td>			
+			<td class='left'><%= user.notes %></td>						
+		</tr>
+		<% end %>
+	</table>
+
+<div class='headers'>
+	<h2>Action Items</h2>
+</div>
+
+	<table>
+		<tr class='header_row'>
+			<th class='leftfirst'>Name</th>
+			<th class='leftnotes'>Description</th>
+			<th class='left'>Due Date</th>
+			<th class='left'>Assigned By</th>
+			<th class='left'>Assigned To</th>
+			<th class='left'>Completed</th>
+			<th class='left'>Compelted Date</th>
+			<th class='left'>Event ID</th>
+			<th class='left'>Investor</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<% @tasks.each do |task| %>
+		<tr class="<%= cycle('odd','even') %>" id="tasks_<%= task.id.to_s %>">
+			<td class='left'><%= link_to task.name, investor_task_path(@investor, task) %></td>
+			<td class='left'><%= truncate(task.description, :length => 25, :omission => "...") %></td>
+			<td class='left'><%= task.due_date %></td>
+			<td class='left'><%= task.user.first_name %></td>
+			<td class='left'><%= task.task_owner.first_name %></td>
+			<td class='left'><%= task.completed? ? 'Yes' : 'No' %></td>
+			<td class='left'><%= task.completed_date %></td>
+			<td class='left'><%= task.event_id %></td>
+			<td class='left'><%= task.investor.name %></td>
+			<td class='left'><%= link_to 'Edit', edit_investor_task_path(@investor, task) %></td>
+			<td class='left'><%= link_to_function 'Destroy', "destroy_it_now('tasks',#{task.id.to_s})" %></td>
+		</tr>
+		<% end %>
+	</table>
+<br />
+<%= link_to 'Add Task', new_organization_investor_task_path(@organization, @investor) %>
+
+<div class='headers'>
+	<h2>Events</h2>
+</div>
+
+	<table>
+		<tr class='header_row'>
+			<th class='left'>Date</th>
+			<th class='left'>Name</th>
+			<th class='left'>Type</th>
+			<th class='left'>Notes</th>
+			<th class='left'>Investor ID</th>
+			<th class='left'>Created By</th>
+			<th></th>
+			<th></th>			
+		</tr>
+		<% @investor.events.each do |event| %>
+		<tr class="<%= cycle('odd','even') %>" id="events_<%= event.id.to_s %>">
+			<td class='left'><%= event.date %></td>
+			<td class='left'><%= link_to event.name, investor_event_path(@investor, event) %></td>
+			<td class='left'><%= event.event_type %></td>
+			<td class='left'><%= truncate(event.notes, :length => 50, :omission => "...") %></td>
+			<td class='left'><%= event.investor.name %></td>
+			<td class='left'><%= event.user.first_name %></td>
+			<td class='left'><%= link_to 'Edit', edit_investor_event_path(@investor, event) %></td>
+			<td class='left'><%= link_to_function 'Destroy', "destroy_it_now('events', #{event.id.to_s})" %></td>
+		</tr>
+		<% end %>
+	</table>
+
+<br />
+<%= link_to "Add Event", new_organization_investor_event_path(@organization, @investor) %>
+
+</div>
+
+<div class='back_footer'>
+	<%= link_to "< Back", investors_path %>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+	function destroy_it_now(model_name, item_id) {
+		var answer = confirm('Are you sure you want to delete this?');
+	  if (answer) {
+			$('#' + model_name + '_' + item_id).hide();
+			$.post('/' + model_name + '/' + item_id, {_method : 'delete', authenticity_token : '<%= form_authenticity_token %>'});
+		} else {
+			return false
+		}
+	}	
+</script>

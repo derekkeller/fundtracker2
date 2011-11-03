@@ -8,14 +8,16 @@ Fundtracker2::Application.routes.draw do
   resources :funds
   resources :companies
   resources :investments
+  resources :reports
   resources :financials do
     put :change_view_period
     put :change_view_type
   end 
-  resources :reports
-  
+
   resources :organizations do
     resources :funds do
+      resources :financials
+      get 'fundfinancials' => 'financials#index_funds'
       resources :companies do
         resources :investments
         resources :financials
@@ -27,9 +29,27 @@ Fundtracker2::Application.routes.draw do
 
   resources :companies do
     resources :financials do
-        get :move_through_time
+      get :move_through_time
     end
   end
+
+  resources :funds do
+    resources :financials do
+      get :move_through_time
+    end
+  end
+
+  resources :investors
+  resources :tasks
+  resources :events
+
+  resources :organizations do
+    resources :investors do
+      resources :tasks
+      resources :events
+    end
+  end
+  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

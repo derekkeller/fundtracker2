@@ -16,10 +16,11 @@ class ForecastSummary
                             :other_income,
                             :other_expense,
                             :tax_expense,
+                            :cash_burn,
                             :head_count,
                             :debt_balance,
-                            :cash_balance,
-                            :cash_burn)
+                            :cash_balance,                            
+                            :month_date)
 
   def initialize(periods, company)
     @periods = periods
@@ -28,6 +29,7 @@ class ForecastSummary
 
     @periods.each do |p|
       financial_records = get_summary_data(@company, p)[0]
+      financial_balance_records = get_summary_balance_data(@company, p)[0]
 
       begin
         @bookings             = financial_records['bookings'] || 0
@@ -42,10 +44,11 @@ class ForecastSummary
         @other_income         = financial_records['other_income'] || 0        
         @other_expense        = financial_records['other_expense'] || 0        
         @tax_expense          = financial_records['tax_expense'] || 0        
-        @head_count           = financial_records['head_count'] || 0        
-        @debt_balance         = financial_records['debt_balance'] || 0        
-        @cash_balance         = financial_records['cash_balance'] || 0        
         @cash_burn            = financial_records['cash_burn'] || 0        
+        @head_count           = financial_balance_records['head_count'] || 0        
+        @debt_balance         = financial_balance_records['debt_balance'] || 0        
+        @cash_balance         = financial_balance_records['cash_balance'] || 0        
+        @month_date           = p[0].beginning_of_month
       rescue
         @bookings             = 0
         @revenue              = 0
@@ -59,10 +62,11 @@ class ForecastSummary
         @other_income         = 0
         @other_expense        = 0
         @tax_expense          = 0
+        @cash_burn            = 0
         @head_count           = 0
         @debt_balance         = 0
         @cash_balance         = 0
-        @cash_burn            = 0
+        @month_date           = 0
       end
       
       @financial_set << FinancialSet.new(p.first.year,
@@ -79,11 +83,12 @@ class ForecastSummary
                                           @other_income,
                                           @other_expense,
                                           @tax_expense,
+                                          @cash_burn,
                                           @head_count,
                                           @debt_balance,
-                                          @cash_balance,
-                                          @cash_burn)
-    end   
+                                          @cash_balance,                                          
+                                          @month_date)
+    end 
   end
 
   def get_summary_data(company, period)
@@ -99,10 +104,21 @@ class ForecastSummary
                                       sum(interest_income) interest_income, 
                                       sum(other_income) other_income, 
                                       sum(other_expense) other_expense, 
-                                      sum(tax_expense) tax_expense                                      
+                                      sum(tax_expense) tax_expense,
+                                      sum(cash_burn) cash_burn                                      
                                     FROM forecasts
                                     WHERE company_id=#{company.id} AND period between '#{period[0]}' AND '#{period[1]}'
                                     GROUP BY company_id")    
+  end
+
+  def get_summary_balance_data(company, period)
+    Forecast.connection.select_all("SELECT
+                                      sum(head_count) head_count,
+                                      sum(debt_balance) debt_balance,
+                                      sum(cash_balance) cash_balance
+                                    FROM forecasts
+                                    WHERE company_id=#{company.id} AND period between '#{period[1].beginning_of_month}' AND '#{period[1]}'
+                                    GROUP BY company_id")
   end
 
 end

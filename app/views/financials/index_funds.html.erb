@@ -1,0 +1,30 @@
+<table class="org_summary right">
+	<%= render @header_row_partial %>
+	<tr>
+		<td class="left">Company</td>
+		<td class="right9">Bookings</td>
+		<td class="right9">Revenue</td>
+		<td class="right9">COGS</td>
+		<td class="right9">Gross Profit</td>
+		<td class="right9">Expenses</td>
+		<td class="right9">Operating Profit</td>
+	</tr>
+	<tr>
+		<% @fund.companies.each do |company| %>
+			<td class="left">
+				<%= company.name %>
+			</td>
+		<% end %>
+		<% @financial_summary.each do |company_financial| %>
+			<% company_financial.financial_set.each do |fs| %>
+				<td style="text-align:right"><%= nhelper(fs.bookings) %></td>
+				<td style="text-align:right"><%= nhelper(fs.revenue) %></td>
+				<td style="text-align:right"><%= nhelper(fs.cogs) %></td>
+				<td style="text-align:right"><%= nhelper(fs.revenue - fs.cogs) %></td>
+				<td style="text-align:right"><%= nhelper(fs.operating_expenses) %></td>
+				<td style="text-align:right"><%= nhelper(fs.revenue - fs.cogs - fs.operating_expenses) %></td>
+			<% end %>
+		<% end %>
+		<td></td>
+	</tr>
+</table>

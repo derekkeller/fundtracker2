@@ -1,0 +1,15 @@
+<tr class="theight theader bold">
+
+	<td>
+		<%= link_to '<<', fund_financial_move_through_time_path(@fund, 0, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :major => 1) %>
+		<%= link_to '<', fund_financial_move_through_time_path(@fund, 0, :organization_id => params[:organization_id], :fund_id => params[:fund_id]) %>
+	</td>
+	<td colspan="6" style="text-align:center">
+		<%= @periods[0][0].strftime('%B %Y') %>
+	</td>
+	<td>
+		<%= link_to '>', fund_financial_move_through_time_path(@fund, 1, :organization_id => params[:organization_id], :fund_id => params[:fund_id]) %>
+		<%= link_to '>>', fund_financial_move_through_time_path(@fund, 1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :major => 1) %>
+	</td>
+
+</tr>

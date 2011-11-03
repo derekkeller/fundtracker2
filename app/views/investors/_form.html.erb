@@ -1,0 +1,44 @@
+<%= form_for [@organization, @investor] do |f| %>
+
+	<p><%= f.label :name, "Investment Group" %><br />
+	<%= f.text_field :name  %></p>
+	
+	<p><%= f.label :street %><br />
+	<%= f.text_field :street  %></p>
+	
+	<p><%= f.label :city %><br />
+	<%= f.text_field :city %></p>
+	
+	<p><%= f.label :state %><br />
+		    <%= f.select :state, ['AK','AL','AR','AZ','CA','CO','CT','DC','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VA','VT','WA','WI','WV','WY'], :include_blank => true %></p>
+	
+	<p><%= f.label :zipcode %><br />
+	<%= f.text_field :zipcode %></p>
+
+	<p><%= f.label :stage %><br />
+	<%= f.select :stage, {'1:Potential' => 1, '2:Engaged' => 2, '3:Term Sheet' => 3, '4:Closed' => 4}, :include_blank => true %></p>
+	
+	<p><%= f.label :status %><br />
+	<%= f.text_area :status, :size => '40x10' %></p>
+
+	<p><%= f.label :probability %></p>
+	<%= f.select :probability, ['high', 'moderate', 'low'], :include_blank => true %>
+	
+	<p><%= f.label :assets %><br />
+	<%= f.text_field :assets %></p>
+	
+	<p><%= f.label :expected_commitment %><br />
+	<%= f.text_field :expected_commitment %></p>
+
+	<p><%= f.label :expected_close %><br />
+	<%= f.date_select :expected_close, :include_blank => true %></p>
+
+	<p><%= f.label :actual_commitment %><br />
+	<%= f.text_field :actual_commitment %></p>
+	
+	<p><%= f.label :actual_close %><br />
+	<%= f.text_field :actual_close %></p>	
+	
+	<p><%= f.submit :Submit %></p>
+
+<% end %>

@@ -25,9 +25,11 @@
 <div class="main_header">
   <div>
     <ul>
-      <li>Dashboard</li>
-      <li><%= link_to 'Portfolio', organizations_path %></li>
-      <li>Fundraising</li>
+      <li><%= link_to 'Dashboard', organizations_path %></li>
+			<% if @organization.present? %>
+      <li><%= link_to 'Portfolio', organization_path(@organization) %></li>
+      <li><%= link_to 'Fundraising', organization_investors_path(@organization) %></li>
+			<% end %>
     </ul>
   </div>
 </div>

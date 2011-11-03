@@ -115,4 +115,16 @@ class ApplicationController < ActionController::Base
     return years.reverse
   end
 
+  def get_month(period)
+    month = [[period.months_ago(1).beginning_of_month, period.months_ago(1).end_of_month]]
+  end
+
+  def get_quarter(period)
+    quarter = [[period.beginning_of_quarter, period.end_of_quarter]]    
+  end
+  
+  def get_year(period)
+    year = [[period.beginning_of_year, period.end_of_year]]    
+  end
+
 end

@@ -1,7 +1,6 @@
 <tr class="theight theader bold">
 	<td>
 		<%= link_to '<<', company_financial_move_through_time_path(@company, 0, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :major => 1) %>
-
 		<%= link_to '<', company_financial_move_through_time_path(@company, 0, :organization_id => params[:organization_id], :fund_id => params[:fund_id]) %>
 	</td>
 <% @financial_summary.financial_set.each do |fs| %>
