@@ -1,0 +1,47 @@
+<%= form_for [@organization, @investor, @task] do |f| %>
+
+	<%= hidden_field_tag :refer_id, @refer_id %>
+
+	<% if @task.errors.any? %>
+		<div id="error_explanation">
+			<h3><%= pluralize(@task.errors.count, "error") %> prevented this from saving:</h3>
+				<ul>
+					<% @task.errors.full_messages.each do |msg| %>				
+						<li><%= msg %></li>
+					<% end %>
+				</ul>
+		</div>
+	<% end %>
+
+	<p>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+	</p>
+	<p>
+		<%= f.label :description %><br />
+		<%= f.text_area :description %>
+	</p>
+	<p>
+		<%= f.label :due_date %>
+		<%= f.text_field :due_date %>
+	</p>
+	<p>
+		<%= f.label :completed %>
+		<%= f.check_box :completed %>
+	</p>
+	<p>
+		<%= f.label :compeletd_date %>
+		<%= f.text_field :completed_date, :include_blank => true %>
+	</p>
+	<p>
+		<%= f.label :event_id %>
+		<%= f.select :event_id, (Event.where('investor_id = ?', @investor.id).all.collect {|e| [e.name, e.id]}), :include_blank => true %>
+	</p>
+	<p>
+		<%= f.label :task_owner %>
+		<%= f.select :task_owner_id, (User.all.collect {|u| [u.first_name, u.id]}), :include_blank => true %>
+	</p>	
+	<p>
+		<%= f.submit %>
+	</p>
+<% end %>

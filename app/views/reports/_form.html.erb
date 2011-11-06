@@ -1,12 +1,3 @@
-<table>
-	<% params.each do |key, value| %>
-		<tr>
-			<td><%= key %></td>
-			<td><%= value %></td>
-		</tr>
-	<% end %>
-</table>
-
 <%= form_for [@organization, @fund, @company, @report] do |f| %>
 
 	<div>

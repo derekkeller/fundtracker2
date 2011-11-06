@@ -38,19 +38,19 @@ class Company < ActiveRecord::Base
   end
   
   def cash_runway
-    self.current_financial(:cash_balance) / self.current_financial(:cash_burn).to_f
+    self.current_financial(:cash_balance) / self.current_financial(:cash_burn).to_f rescue 0
   end
 
 # // Current & First //
 
   def current_financial(item)
-      financial = self.financials.order('period ASC').last
-      financial.try(item)
+    financial = self.financials.order('period ASC').last
+    financial.try(item)
   end
 
   def current_investment(item)
-      investment = self.investments.order('date ASC').last
-      investment.try(item)
+    investment = self.investments.order('date ASC').last
+    investment.try(item)
   end
 
   def first_investment(item)

@@ -1,0 +1,37 @@
+<h2><%= @organization.name %> | Fund <%= @fund.number %> Investments</h2>
+<br />
+<table class="left" style="width:1200px">
+  <tr class="theight theader bold">
+		<th class="left">Date</th>
+    <th class="left">Company</th>
+		<th class="left">Name</th>
+		<th class="left">Security</th>
+		<th>H12 Investment Amount</th>
+		<th>Pre-Money</th>
+		<th>Total Raise</th>
+		<th>Post-Money</th>
+		<th>Liquidation Pref</th>
+		<th>FD Own %</th>
+		<th>Pref Own %</th>
+	</tr>
+	<% @investments.each do |inv| %>
+	<tr class="theight">
+		<td><%= inv.date %></td>
+    <td><%= link_to inv.company.name, organization_fund_company_investments_path(@organization, @fund, inv.company.id) %></td>
+		<td><%= link_to inv.name, organization_fund_company_investment_path(@organization, @fund, inv.company.id, inv.id) %></td>
+		<td><%= inv.security_type %></td>
+		<td><%= nh(inv.investment_amount) %></td>
+		<td><%= nh(inv.pre_money) %></td>
+		<td><%= nh(inv.capital_raised) %></td>
+		<td><%= nh(inv.post_money) %></td>
+		<td><%= inv.liquidation_preference %></td>
+		<td><%= ph(inv.fully_diluted_ownership) %></td>
+		<td><%= ph(inv.preferred_ownership) %></td>
+	</tr>
+	<% end %>
+</table>
+
+
+<div class='back_footer'>
+	<%= link_to 'Back', organization_fund_path(@organization, @fund) %>
+</div> 

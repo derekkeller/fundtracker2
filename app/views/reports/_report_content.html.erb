@@ -1,4 +1,6 @@
-<h2>Report for <%= @report.period %></h2>
+<div class="headers">
+  <h2><%= @report.period.strftime('%B %Y') %></h2>  
+</div>
 
 <div id="advancement_container">
 	<div id="previous_button">

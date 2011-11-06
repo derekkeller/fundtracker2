@@ -1,0 +1,36 @@
+<div class='headers'>
+	<h2>Action Items</h2>
+</div>
+
+  <table>
+	  <tr class="theight theader">
+			<th class='left' style="width:80px">Due Date</th>
+			<th class='left'>Name</th>
+			<th class='leftnotes'>Description</th>
+			<th class='left'>Assigned By</th>
+			<th class='left'>Assigned To</th>
+			<th class='left'>Completed</th>
+			<th class='left'>Compelted Date</th>
+			<th class='left'>Event ID</th>
+			<th class='left'>Investor</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<% @tasks.each do |task| %>
+		<tr class="theight">
+			<td class='left'><%= task.due_date %></td>
+			<td class='left'><%= link_to task.name, organization_investor_task_path(@organization, @investor, task) %></td>
+			<td class='left'><%= truncate(task.description, :length => 25, :omission => "...") %></td>
+			<td class='left'><%= task.user.first_name rescue "Assignor" %></td>
+			<td class='left'><%= task.task_owner.first_name rescue "Assignee" %></td>
+			<td class='left'><%= task.completed? ? 'Yes' : 'No' %></td>
+			<td class='left'><%= task.completed_date %></td>
+			<td class='left'><%= task.event_id %></td>
+			<td class='left'><%= task.investor.name %></td>
+			<td class='left'><%= link_to 'Edit', edit_organization_investor_task_path(@organization, @investor, task) %></td>
+			<td class='left'><%= link_to_function 'Destroy', "destroy_it_now('tasks',#{task.id.to_s})" %></td>
+		</tr>
+		<% end %>
+	</table>
+<br />
+<%= link_to 'Add Task', new_organization_investor_task_path(@organization, @investor) %>

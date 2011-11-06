@@ -1,5 +1,5 @@
 class InvestorsController < ApplicationController
-  before_filter :load_paths
+  before_filter :load_paths, :except => :destroy
 
   def new
     @investor = @organization.investors.new
@@ -27,8 +27,23 @@ class InvestorsController < ApplicationController
   end
 
   def edit
+    @investor = @organization.investors.find(params[:id])
   end
 
+  def update
+    @investor = @organization.investors.find(params[:id])
+    if @investor.update_attributes(params[:investor])
+      redirect_to organization_investor_path(@organization, @investor), :flash => {:success => 'Investor Updated'}
+    else
+      render :edit
+    end    
+  end
+
+  def destroy
+    @investor = Investor.find(params[:id])
+    @investor.destroy
+    redirect_to organizations_path, :flash => {:success => 'Investor Removed'}
+  end
 
   private
     def load_paths

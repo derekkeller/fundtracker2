@@ -2,8 +2,8 @@
 	<h1>Investors</h1>
 </div>
 
-<table>
-	<tr class='header_row'>
+<table class="org_summary right">
+	<tr class="theight theader bold">
 		<th class='left'>Investment Group</th>
 		<th class='left'>Status</th>
 		<th class='left'>Stage</th>
@@ -14,9 +14,11 @@
 		<th class='left'>Closed Commitment</th>
 		<th class='left'></th>
 		<th class='left'></th>
+		<th></th>
+		<th></th>
 	</tr>
 	<% @investors.each do |investor| %>
-	<tr class="<%= cycle('odd','even') %>">
+	<tr class="theight">
 		<td class='left'><%= link_to investor.name, organization_investor_path(@organization, investor) %></td>
 		<td class='left'><%= truncate(investor.status, :length => 60, :omission => "...") %></td>
 		<td class='left'><%= investor.stage %></td>

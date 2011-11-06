@@ -1,12 +1,12 @@
 <table style="text-align:left;width:500px">
-	<tr>
+  <tr class="theight theader bold">
 		<th>Organization</th>
 		<th>Funds</th>
 		<th>Companies</th>
     <th></th>
 	</tr>
 	<% @organizations.each do |organization| %>
-	<tr>
+	<tr class="theight">
 		<td><%= link_to organization.name, organization_path(organization) %></td>
 		<td><%= organization.funds.count %></td>
 		<td><%= organization.companies.count %></td>

@@ -1,23 +1,32 @@
-<h2><%= @company.name %> Reports</h2>
+<div class="headers">
+  <h1><%= @company.name %> Reports</h1>  
+</div>
 
 <%= form_tag '/reports/show_filtered', :remote => true do %>
-	<div>
-		<%= label_tag :report_year %>
-		<%= select_year(Date.today, :field_name => :report_year) %>
-	</div>
-	<div>
-		<%= label_tag :report_month %>
 		<%= select_month(Date.today, :field_name => :report_month) %>
-	</div>
-		<%= submit_tag :search %>
+		<%= select_year(Date.today, :field_name => :report_year) %>
+		<%= submit_tag "See Report" %>
 <% end %>
+<br />
 
 <div class="report_month_menu">
-	<% @report_months.each do |position, month| %>
-		<div id="<%= position %>" class="<%= check_report(@report.period.month, position) %>">
-			<%= link_to month, organization_fund_company_report_path(@organization, @fund, @company, @company.reports.where("period = ?", @report.period.beginning_of_year.months_since("#{position}".to_i)).first.id) rescue month %>			
-		</div>
-	<% end %>
+  <div class="month_plain">
+    <%= link_to "< 2010", report_change_report_period_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %>
+  </div>
+
+  <% if @report.present? %>
+  	<% @report_months.each do |position, month| %>
+  		<div id="<%= position %>" class="<%= check_report(@report.period.month, position) %>">
+  			<%= link_to month, organization_fund_company_report_path(@organization, @fund, @company, @company.reports.where("period = ?", @report.period.beginning_of_year.months_since("#{position}".to_i)).first.id) rescue month %>			
+  		</div>
+  	<% end %>
+  <% else %>
+    Hi!
+  <% end %>
+
+  <div class="month_plain">
+    <%= link_to "2012 >", '#' %>
+  </div>
 	<div class="month_plain" style="float: right">
 		<%= link_to "Add Report", new_organization_fund_company_report_path(@organization, @fund, @company) %>
 	</div>
@@ -40,8 +49,8 @@
 <script>
 
 	function recolor_month(selected_period) {
-		$('div.report_month_menu div').removeClass('month_selected').addClass('month_plain')
-		$('.report_month_menu div#"#{selected_period"').addClass('month_selected')
-	}
+    jQuery('div.report_month_menu div').removeClass('month_selected').addClass('month_plain')
+		jQuery('.report_month_menu div#' + selected_period).addClass('month_selected')
+	};
 
 </script>

@@ -1,45 +1,47 @@
 <% if @company.present? %>
 
-	<h2><%= @company.name %> Financials</h2>
+<div class='headers'>
+	<h1><%= @company.name %> Financials</h1>  
+</div>
 
-	<div style="font-size: 13px">
-		Type:
-		<span class="<%= check_view(session[:view_type], 'actual') %>"><%= link_to "Actual", financial_change_view_type_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span>
+  <div class="report_month_menu">
+		<div class="<%= check_view(session[:view_type], 'actual') %>"><%= link_to "Actual", financial_change_view_type_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></div>
 
-		<span class="<%= check_view(session[:view_type], 'forecast') %>"><%= link_to "Forecast", financial_change_view_type_path(2, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span>
+		<div class="<%= check_view(session[:view_type], 'forecast') %>"><%= link_to "Forecast", financial_change_view_type_path(2, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></div>
 	
-		<span class="<%= check_view(session[:view_type], 'sales') %>"><%= link_to "% Sales", financial_change_view_type_path(5, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span><br />
+		<div class="<%= check_view(session[:view_type], 'sales') %>"><%= link_to "% Sales", financial_change_view_type_path(5, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></div>
+</div>
 
-		Period:
-		<span class="<%= check_view(session[:view_period], 'year') %>">
-		<%= link_to "Year", financial_change_view_period_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span>
+<div class="report_month_menu" style="border-top:none;">
+		<div class="<%= check_view(session[:view_period], 'year') %>">
+		<%= link_to "Year", financial_change_view_period_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></div>
 
-		<span class="<%= check_view(session[:view_period], 'quarter') %>">
-		<%= link_to "Quarter", financial_change_view_period_path(2, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span>
+		<div class="<%= check_view(session[:view_period], 'quarter') %>">
+		<%= link_to "Quarter", financial_change_view_period_path(2, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></div>
 
-		<span class="<%= check_view(session[:view_period], 'month') %>">
-		<%= link_to "Month", financial_change_view_period_path(3, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></span>	
-	</div>
+		<div class="<%= check_view(session[:view_period], 'month') %>">
+		<%= link_to "Month", financial_change_view_period_path(3, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %></div>
+</div>
 
 <% else %>
 
-	<div style="font-size: 13px">
-		Type:
-		<span class="<%= check_view(session[:view_type], 'actual') %>"><%= link_to "Actual", financial_change_view_type_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></span>
+<div class="report_month_menu">
+		<div class="<%= check_view(session[:view_type], 'actual') %>"><%= link_to "Actual", financial_change_view_type_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></div>
 
-		<span class="<%= check_view(session[:view_type], 'forecast') %>"><%= link_to "Forecast", financial_change_view_type_path(2, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></span>
+		<div class="<%= check_view(session[:view_type], 'forecast') %>"><%= link_to "Forecast", financial_change_view_type_path(2, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></div>
 
-		<span class="<%= check_view(session[:view_type], 'sales') %>"><%= link_to "% Sales", financial_change_view_type_path(5, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></span><br />
+		<div class="<%= check_view(session[:view_type], 'sales') %>"><%= link_to "% Sales", financial_change_view_type_path(5, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></div>
+</div>
 
-		Period:
-		<span class="<%= check_view(session[:view_period], 'year') %>">
-		<%= link_to "Year", financial_change_view_period_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></span>
+<div class="report_month_menu" style="border-top:none;">
+		<div class="<%= check_view(session[:view_period], 'year') %>">
+		<%= link_to "Year", financial_change_view_period_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></div>
 
-		<span class="<%= check_view(session[:view_period], 'quarter') %>">
-		<%= link_to "Quarter", financial_change_view_period_path(2, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></span>
+		<div class="<%= check_view(session[:view_period], 'quarter') %>">
+		<%= link_to "Quarter", financial_change_view_period_path(2, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></div>
 
-		<span class="<%= check_view(session[:view_period], 'month') %>">
-		<%= link_to "Month", financial_change_view_period_path(3, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></span>	
+		<div class="<%= check_view(session[:view_period], 'month') %>">
+		<%= link_to "Month", financial_change_view_period_path(3, :organization_id => params[:organization_id], :fund_id => params[:fund_id]), :method => :put %></div>	
 	</div>
 
 <% end %>

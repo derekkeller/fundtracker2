@@ -1,3 +1,30 @@
+body {
+	font-family: arial;
+	font-size: 12px;
+}
+
+.back_footer {
+	margin-top: 20px;
+	border-top: solid 1px #659EC2;
+	width: 100%;
+	float: left;
+	padding-bottom: 40px;
+}
+
+a:link {
+	text-decoration: none;
+	font-size: 12px;
+	color: #636EE7;
+}
+
+a:visited {
+	color: #636EE7;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
 .temp_holder {
 	width: 1000px;
 	position: relative;
@@ -8,13 +35,14 @@
 .report_month_menu {
 	padding-top: 9px;
 	width: 950px;
-	height: 24px;
+	height: 23px;
 	font-size: .8em;
 	border-top: 1px solid #B9B9B9;
 	border-bottom: 1px solid #B9B9B9;
 }
 
 .month_plain {
+	font-size: 12px;
 	float: left;
 	color: #B9B9B9;
 	margin-right: 10px;
@@ -60,7 +88,6 @@
 	border-radius: 5px;
 	background: #EFEFEF;
 	float: left;
-	font-size: .75em;	
 }
 
 .report_item_content {
@@ -91,6 +118,7 @@
 			float: left;
 			display: block;}
 			.main_header ul li a:link, .main_header ul li a:visited {
+				font-size: 14px;
 				color: #FFF;
 				text-decoration: none;}
 			.main_header ul li a:hover {
@@ -113,6 +141,7 @@
 			float: left;
 			display: block;}
 			.dropdown_sub_header ul li a:link, .dropdown_sub_header ul li a:visited {
+				font-size: 14px;
 				color: white;
 				text-decoration: none;}
 			.dropdown_sub_header ul li a:hover {
@@ -177,6 +206,7 @@
 		.dropdown_header_right li {
 			margin-left: 10px;}
 			.dropdown_header_right ul li a:link, .dropdown_header_right ul li a:visited {
+				font-size: 14px;
 				color: #FFF;
 				text-decoration: none;}
 			.dropdown_header_right ul li a:hover {
@@ -205,24 +235,16 @@
 	border-top: 1px solid #DDD;
 }
 
-a:link, a:visited {
-	color: #636EE7;
-}
-
-p {
-	font-size: 13px;
-}
-
 #advancement_container {
 	height: 20px;
 	position: relative;
 }
 
 #next_button {
+	font-size: 10px;
 	position: absolute;
 	left: 85px;
 	top: 0px;	
-	font-size: .6em;
 	font-weight: bold;
 	text-indent: 6px;
 	color: #CCC;
@@ -230,6 +252,7 @@ p {
 }
 
 #next_button a:link, #next_button a:visited {
+	font-size: 10px;
 	width: 80px;
 	height: 20px;
 	color: #FFF;
@@ -239,10 +262,10 @@ p {
 }
 
 #previous_button {
+	font-size: 10px;
 	position: absolute;
 	left: 0px;
 	top: 0px;	
-	font-size: .6em;
 	font-weight: bold;
 	text-indent: 6px;
 	color: #CCC;
@@ -250,16 +273,13 @@ p {
 }
 
 #previous_button a:link, #previous_button a:visited {
+	font-size: 10px;
 	width: 80px;
 	height: 20px;
 	color: #FFF;
 	background: url(../images/previous.png) no-repeat top left;
 	display: block;
 	text-decoration: none;
-}
-
-body {
-	font-family: arial;
 }
 
 div.log_out_link {
@@ -468,14 +488,13 @@ div.log_out_link {
   margin: 7px 0px 0px 10px; }
 
 table {
-/*  width: 1000px;*/
   border-collapse: collapse; }
 
-td {
+/*td {
   font-size: 75%; }
 
 th {
-  font-size: 80%; }
+  font-size: 80%; }*/
 
 tr.total_row {
   background-color: #999; }
@@ -527,9 +546,6 @@ hr.clear {
     text-decoration: none; }
     #content a:hover {
       color: #666; }
-
-h2 {
-  font-size: 16px; }
 
 .small_text {
   font-size: 0.8em; }
@@ -599,7 +615,6 @@ h2 {
 	border-radius: 5px;
 	background: #EFEFEF;
 	width: 300px;
-	font-size: .75em;
 	float: left;}
 	#company_summary_box_title {
 		border-bottom: 1px solid #D8D8D8;
@@ -622,7 +637,6 @@ h2 {
 	margin: 10px;
 	margin-left: 0px;
 	width: 300px;
-	font-size: .75em;
 	float: left;}
 	#company_summary_box_tall_title {
 		border-bottom: 1px solid #D8D8D8;
@@ -650,7 +664,6 @@ h2 {
 	border-radius: 5px;
 	background: #EFEFEF;
 	width: 600px;
-	font-size: .75em;
 	float: left;}
 	#company_summary_box_wide_title {
 		border-bottom: 1px solid #D8D8D8;
@@ -670,21 +683,12 @@ h2 {
 			width: 100px;
 			float: left;}
 			
-.back_footer {
-	font-size: .75em;
-	width: 100%;
-	float: left;
-	margin-top: 20px;
-	padding-bottom: 50px;
-	border-top: solid 1px #D8D8D8;	
-}
-
 table.org_summary {
 /*	width: 90%;*/
 }	
 	
 table.org_summary	th {
-		border-bottom: 1px solid #000;
+/*		border-bottom: 1px solid #000;*/
 }
 
 .top_space {
@@ -704,7 +708,7 @@ table.org_summary	th {
 	width: 150px;
 }
 
-.leftnotes {
+ notes {
 	text-align: left;
 	width: 175px;
 }
@@ -713,22 +717,13 @@ table.org_summary	th {
 	text-align: right;
 }
 
-.header_row {
-	height: 30px;
-	font-size: .9em;
-	border-bottom: 1px solid #CCC;
-	background-color: #E0EAF1;
-}
-
 .odd {
 	height: 30px;
-	font-size: .9em;
 	border-bottom: 1px solid #CCC;
 }
 
 .even {
 	height: 30px;
-	font-size: .9em;
 	border-bottom: 1px solid #CCC;
 }
 
@@ -785,24 +780,17 @@ table.org_summary	th {
 }
 
 .headers h1 {
-	font-size: 1.6em;	
-	color: #1B9D95;
+	font-size: 1.1em;	
 	font-weight: bold;
 	margin: 10px 0 1ex 0;	
-	border-bottom: solid 2px #1B9D95;
+	border-bottom: 1px solid;
 }
 
 .headers h2 {
-	font-size: 1.2em;
-	color: #1B9D95;
-	font-weigth: bold;
-	margin: 20px 0 0 0;	
-	border-bottom: dashed 1px #1B9D95;
-}
-
-.back_footer {
-	margin-top: 20px;
-	border-top: solid 1px #1B9D95;	
+	font-size: 1em;
+	font-weight: bold;
+	margin: 20px 0 1ex 0;	
+	border-bottom: dashed 1px;
 }
 
 .investor_main_container {
@@ -826,14 +814,12 @@ table.org_summary	th {
 	float: left;
 	width: 300px;
 	margin-bottom: 5px;
-	font-size: .9em;
 }
 
 .investor_container #object_status {
 	float: left;
 	width: 600px;
 	margin-bottom: 5px;
-	font-size: .9em;
 }
 
 .investor_container #left {

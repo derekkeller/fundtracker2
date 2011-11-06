@@ -1,8 +1,14 @@
 class InvestmentsController < ApplicationController
-  before_filter :load_paths
+  before_filter :load_paths, :except => :index_funds
 
   def index
     @investments = @company.investments.all
+  end
+
+  def index_funds
+    @organization = Organization.find(params[:organization_id])
+    @fund = @organization.funds.find(params[:fund_id])
+    @investments = @fund.investments.order('date DESC').all
   end
 
   def new

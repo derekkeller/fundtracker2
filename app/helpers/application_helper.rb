@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def current_user
+    @current_user ||= User.find_by_auth_token(session[:auth_token]) if session[:auth_token]
+  end
+
   def nh(number, decimals=0)
     number_to_currency(number, :precision => decimals)    
   end
@@ -40,9 +44,9 @@ module ApplicationHelper
 
   def check_view(a, b)
     if a == b
-      'bold'
+      'month_selected'
     else
-      ''
+      'month_plain'
     end    
   end
   

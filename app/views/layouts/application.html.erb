@@ -2,13 +2,12 @@
 <html>
 <head>
   <title>Fundtracker2</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :all %>
+	<%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/redmond/jquery-ui.css", "application" %>
+	<%= javascript_include_tag "jquery.min.js", "jquery-ui.min.js" %>
+	<%= javascript_include_tag 'rails.js', 'application.js' %>
   <%= csrf_meta_tag %>
 </head>
-	<script type="text/javascript" charset="utf-8">
-		$.noConflict();
-	</script>
+
 <body>
 
 <%= notice %>
@@ -26,7 +25,7 @@
   <div>
     <ul>
       <li><%= link_to 'Dashboard', organizations_path %></li>
-			<% if @organization.present? %>
+			<% if @organization.present? && @organization.name.present? %>
       <li><%= link_to 'Portfolio', organization_path(@organization) %></li>
       <li><%= link_to 'Fundraising', organization_investors_path(@organization) %></li>
 			<% end %>
@@ -41,7 +40,6 @@
     		<%= select_tag(:organization_id, options_for_select(Organization.all.map {|o| [o.name, o.id]}.unshift(['All Organizations','']), session[:organization_id]), :onchange => 'to_organization_index(this)') %>
     	<% end %>
     </li>
-
     <li>
     	<%= form_tag do %>
     		<%= label_tag :fund %>
@@ -55,7 +53,23 @@
     	<% end %>
     </li>
   </ul>
-	<% if @company.present? %>
+	<% if controller_name == 'funds' || action_name == 'index_funds' || action_name == 'index_investments' && @fund.name.present? %>
+		<div class="dropdown_header_right">
+			<ul>
+				<li><%= link_to 'Summary', organization_fund_path(@organization, @fund) %></li>
+				<li><%= link_to 'Financials', organization_fund_fundfinancials_path(@organization, @fund) %></li>
+				<li>Metrics</li>			
+				<li><%= link_to 'Investments', organization_fund_fundinvestments_path(@organization, @fund) %></li>
+				<li>Documents</li>
+			</ul>
+		</div>
+	</div>
+  	<div class="dropdown_sub_header">
+  		<ul>
+  			<li><%= link_to 'Add Company', new_organization_fund_company_path(@organization, @fund) %></li>
+  		</ul>
+  	</div>
+	<% elsif controller_name == 'companies' || controller_name == 'reports' || controller_name == 'financials' || controller_name == 'investments'  %>
 		<div class="dropdown_header_right">
 			<ul>
 				<li><%= link_to 'Summary', organization_fund_company_path(@organization, @fund, @company) %></li>
@@ -66,17 +80,32 @@
 				<li>Documents</li>
 			</ul>
 		</div>
-	<% end %>
-</div>
-<% if @company.present? %>
-	<div class="dropdown_sub_header">
-		<ul>
-			<li><%= link_to 'Add Financials', new_organization_fund_company_financial_path(@organization, @fund, @company) %></li>
-			<li><%= link_to 'Add Investment', new_organization_fund_company_investment_path(@organization, @fund, @company) %></li>
-		</ul>
 	</div>
-<% end %>
+  	<div class="dropdown_sub_header">
+  		<ul>
+  			<li><%= link_to 'Add Report', new_organization_fund_company_report_path(@organization, @fund, @company) %></li>
+  			<li><%= link_to 'Add Financials', new_organization_fund_company_financial_path(@organization, @fund, @company) %></li>
+  			<li><%= link_to 'Add Investment', new_organization_fund_company_investment_path(@organization, @fund, @company) %></li>
+  		</ul>
+  	</div>
+	<% else %>
+		<div class="dropdown_header_right"></div>
+		<div class="dropwdown_sub_header"></div>
+		</div>
+  	<div class="dropdown_sub_header">
+			<% if @organization.present? && @organization.name.present? %>
+	  		<ul>
+	  			<li><%= link_to 'Add Fund', new_organization_fund_path(@organization) %></li>
+	  		</ul>
+			<% else %>
+	  		<ul>
+	  			<li><%= link_to 'Add Organization', new_organization_path %></li>
+	  		</ul>
+			<% end %>
+  	</div>
+	<% end %>
 
+<br />
 <% if controller_name == 'financials' %>
   <%= render 'financials_sub_nav' %>
 <% elsif controller_name == 'forecasts' %>

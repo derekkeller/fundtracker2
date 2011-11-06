@@ -1,8 +1,26 @@
-<h2><%= @company.name %> Investments</h2>
+<div class="headers">
+  <h1><%= @company.name %> Investments</h1>  
+</div>
 
-<table style="width:1000px; text-align:right">
-	<tr>
-		<th>Date</th>
+<h2>All Investments</h2>
+
+<div class="report_month_menu" style="width: 100%">
+	<div class="month_selected">
+		<%= link_to 'All Investments', organization_fund_company_investments_path(@organization, @fund, @company) %>
+	</div>
+	<% @investments.each do |investment| %>
+		<div class="month_plain">
+			<%= link_to investment.name, organization_fund_company_investment_path(@organization, @fund, @company, investment.id) rescue investment %>			
+		</div>
+	<% end %>
+	<div class="month_plain" style="float: right">
+		<%= link_to 'Add Investment', new_organization_fund_company_investment_path(@organization, @fund, @company) %>
+	</div>
+</div>
+
+<table class="right" style="width:1100px">
+  <tr class="theight theader bold">
+		<th class="left">Date</th>
 		<th>Name</th>
 		<th>Security</th>
 		<th>H12 Investment Amount</th>
@@ -14,8 +32,8 @@
 		<th>Pref Own %</th>
 	</tr>
 	<% @investments.each do |inv| %>
-	<tr>
-		<td><%= inv.date %></td>
+	<tr class="theight">
+		<td class="left"><%= inv.date %></td>
 		<td><%= link_to inv.name, organization_fund_company_investment_path(@organization, @fund, @company, inv.id) %></td>
 		<td><%= inv.security_type %></td>
 		<td><%= nh(inv.investment_amount) %></td>
@@ -31,6 +49,5 @@
 
 
 <div class='back_footer'>
-	<%= link_to 'Add Investment', new_organization_fund_company_investment_path(@organization, @fund, @company) %> |
 	<%= link_to 'Back', organization_fund_company_path(@organization, @fund, @company) %>
 </div>

@@ -1,0 +1,42 @@
+<%= form_for [@organization, @investor, @event] do |f| %>
+
+	<%= hidden_field_tag :refer_id, @refer_id %>
+
+	<p><%= f.label :name %><br />
+	<%= f.text_field :name %></p>
+
+	<p><%= f.label :event_type %><br />
+	<%= f.select :event_type, ['meeting', 'phone'], :include_blank => true %></p>	
+		
+	<p><%= f.label :date %><br />
+	<%= f.text_field :date %></p>
+
+	<p><%= f.label :notes %><br />
+	<%= f.text_area :notes %></p>
+
+	<p>
+		<p><%= @investor.name %> Contacts</p>
+		<% if User.where('investor_id = ?', @investor.id).present? %>
+			<% User.where('investor_id = ?', @investor.id).all.each do |participant| %>
+		    <label>
+		      <%= check_box_tag "event[attendee_ids][]", participant.id, @event.attendee_ids.include?(participant.id) %>
+					<%= participant.first_name %><br />
+		    </label>
+		  <% end %>
+		<% else %>
+			<p>(No contacts available)</p>
+		<% end %>
+
+		<p>Highway 12 Team</p>
+		<% (Role.find_by_name('admin').users + Role.find_by_name('manager').users).each do |h12_participant| %>
+	    <label>
+	      <%= check_box_tag "event[attendee_ids][]", h12_participant.id, @event.attendee_ids.include?(h12_participant.id) %>
+				<%= h12_participant.first_name %><br />
+	    </label>
+	  <% end %>
+
+	</p>
+
+	<p><%= f.submit %></p>
+
+<% end %>

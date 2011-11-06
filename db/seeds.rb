@@ -137,6 +137,12 @@ Investment.create([
                   :fully_diluted_ownership => 12.0,
                   :notes => "Acquisition spree financing to allow for business expansion and new opportunity creation."
                 }])
+
+Role.create([
+              {:name => "admin"},
+              {:name => "manager"},
+              {:name => "investor"}
+            ])
               
 Report.create([
                {:company_id => 1, :period => "2011-06-01"},

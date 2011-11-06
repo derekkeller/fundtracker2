@@ -1,0 +1,46 @@
+<div class='headers'>
+	<h1><%= @task.name %></h2>
+</div>
+
+<div id='task_main'>
+	<div id='task_left'>
+		<div id='task_left_box'>
+			<div id='task_item'>Due Date</div>
+			<div id='task_item_detail'><%= @task.due_date %></div>
+		</div>
+		<div id='task_left_box'>
+			<div id='task_item'>Responsible</div>
+			<div id='task_item_detail'><%= @task.task_owner.to_s rescue "Task Assignee" %></div>
+		</div>
+		<div id='task_left_box'>
+			<div id='task_item'>Assigned By</div>
+			<div id='task_item_detail'><%= @task.user.to_s rescue "Task Assinor" %></div>
+		</div>
+		<% if @task.completed %>
+			<div id='task_left_box'>
+				<div id='task_item'>Completed</div>
+				<div id='task_item_detail'><%= @task.completed? ? 'Yes' : 'No' %></div>
+			</div>			
+			<div id='task_left_box'>
+				<div id='task_item'>Date Completed</div>
+				<div id='task_item_detail'><%= @task.completed_date %></div>
+			</div>
+		<% else %>
+		<div id='task_left_box'>
+			<div id='task_item'>Completed</div>
+			<div id='task_item_detail'><%= @task.completed? ? 'Yes' : 'No' %></div>
+		</div>
+		<% end %>
+	</div>
+	<div id='task_right'>
+		<%= @task.description %>
+	</div>
+</div>
+
+<br />
+<%= link_to 'Edit', edit_organization_investor_task_path(@organization, @investor, @task) %> |
+<%= link_to 'Destroy', @event, :confirm => 'Are you sure?', :method => :delete %>
+
+<div class='back_footer'>
+	<%= link_to "Back to #{@investor.name}", organization_investor_path(@organization, @investor) %>
+</div>

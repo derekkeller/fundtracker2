@@ -1,2 +1,9 @@
-<h1>Investors#edit</h1>
-<p>Find me in app/views/investors/edit.html.erb</p>
+<div class='headers'>
+	<h1>Edit Investor</h1>	
+</div>
+
+<%= render 'form' %>
+
+<div class='back_footer'>
+	<%= link_to 'Back', organization_investors_path(@organization) %>
+</div>

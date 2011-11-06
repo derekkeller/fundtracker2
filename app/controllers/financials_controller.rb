@@ -8,7 +8,8 @@ class FinancialsController < ApplicationController
     @view_period = get_view_period()
     @view_type = get_view_type()
 
-    @fund = Fund.find(params[:fund_id])
+    @organization = Organization.find(params[:organization_id])
+    @fund = @organization.funds.find(params[:fund_id])
 
     case @view_period
     when 'year'
