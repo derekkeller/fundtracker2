@@ -1,9 +1,5 @@
 Fundtracker2::Application.routes.draw do
 
-  get "tasks/index"
-
-  get "tasks/new"
-
   root :to => "organizations#index"
 
   post 'reports/show_filtered'
