@@ -1,5 +1,15 @@
+<%= form_for([@organization, @fund, @company, @report] ) do |f| %>
+
 <div class="headers">
-  <h2><%= @report.period.strftime('%B %Y') %></h2>  
+  <h2>
+    <span class="report_item_content" style="height:20px"><%= @report.period.strftime('%B %Y') %></span>
+    <div class="report_item_content_edit_form" style="display:none">
+      <%= f.date_select :period, :discard_day => :true, :order => [:month, :year], :default => {:day => 1} %>
+      <%= link_to_function '| Save', "save_content()", :class => 'save_button', :style => 'display:none' %>
+      <%= link_to '| Cancel', organization_fund_company_report_path(@organization, @fund, @company, @report) %>
+    </div>
+    <%= link_to_function '| Edit', "edit_content()", :class => 'edit_button' %>
+  </h2>  
 </div>
 
 <div id="advancement_container">
@@ -11,20 +21,55 @@
 		<%= link_to "NEXT >", organization_fund_company_report_path(@organization, @fund, @company, @company.next_report(@report.id)) rescue "NEXT >" %>
 	</div>
 </div>
-	
-<% @report_items.each do |item| %>
-	<div class="report_item">
-		<div class="report_flag">
-			<% if Report::STATUS[@report.try(item + "_status")] == "Green" %>
-				<%= image_tag('green.png') %>
-			<% elsif Report::STATUS[@report.try(item + "_status")] == "Yellow" %>
-				<%= image_tag('yellow.png') %>
-			<% elsif Report::STATUS[@report.try(item + "_status")] == "Red"  %>
-				<%= image_tag('red.png') %>
-			<% else %>
-			<% end %>
-		</div>
-		<div class="report_item_title"><%= item.humanize %></div>
-		<div class="report_item_content"><%= @report.try(item) %></div>
-	</div>
+
+  <% @report_items.each do |item| %>
+  	<div class="report_item">
+  		<div class="report_flag">
+  			<% if Report::STATUS[@report.try(item + "_status")] == "Green" %>
+  				<%= image_tag('green.png') %>
+  			<% elsif Report::STATUS[@report.try(item + "_status")] == "Yellow" %>
+  				<%= image_tag('yellow.png') %>
+  			<% elsif Report::STATUS[@report.try(item + "_status")] == "Red"  %>
+  				<%= image_tag('red.png') %>
+  			<% else %>
+  			<% end %>
+  		</div>
+  		<div class="report_item_title"><%= item.humanize %></div>
+  		<div class="report_item_content"><%= @report.try(item) %></div>
+
+      <!-- Dynamic Edit -->
+      <div class="report_flag_edit" style="display:none">
+ 		    <%= f.select( "#{item}_status".to_sym, options_for_select(Report::STATUS.invert.to_a,  @report.try(item + '_status')), :include_blank => true ) %>
+
+      </div>
+  		<div class="report_item_content_edit_form" style="display:none">
+  		  <%= f.text_area item.to_sym, :size => "61x9" %>
+  		</div>
+      <%= link_to_function 'Edit', "edit_content()", :class => 'edit_button' %>
+      <%= link_to_function 'Save', "save_content()", :class => 'save_button', :style => 'display:none' %>
+      <%= link_to '| Cancel', organization_fund_company_report_path(@organization, @fund, @company, @report), :class => 'save_button', :style => 'display:none' %>
+  	</div>
+  <% end %>
+  
 <% end %>
+
+<script type="text/javascript">
+  function edit_content() {
+    $('.report_item_content').hide();
+    $('.report_item_content_edit_form').show();
+    $('.edit_button').hide();
+    $('.save_button').show();
+    $('.report_flag').hide();
+    $('.report_flag_edit').show();    
+  };
+
+  function save_content() {
+    $('form').submit();
+    $('.report_item_content_edit_form').hide();
+    $('.report_item_content').show();
+    $('.save_button').hide();
+    $('.edit_button').show();
+    $('.report_flag_edit').hide();
+    $('.report_flag').show();
+  };
+</script>

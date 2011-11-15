@@ -72,11 +72,16 @@ a:hover {
 	margin-top: -5px;
 }
 
+.report_flag_edit {
+	float: right;
+	margin-right: 0px;
+	margin-top: -34px;
+}
+
 .report_item_title {
 	border-bottom: 1px solid #CCC;
 	margin-bottom: 10px;
 	font-weight: bold;
-	cursor: pointer;
 }
 
 .report_item {

@@ -58,10 +58,14 @@ class ReportsController < ApplicationController
   
   def update
     @report = @company.reports.find(params[:id])
-    if @report.update_attributes(params[:report])
-      redirect_to organization_fund_company_report_path(@organization, @fund, @company, @report), :flash => {:success => "Report updated"}
-    else
-      render :edit
+
+    respond_to do |format|
+      if @report.update_attributes(params[:report])
+        format.html { redirect_to organization_fund_company_report_path(@organization, @fund, @company, @report), :flash => {:success => "Report updated"} }
+        format.js
+      else
+        render :edit
+      end
     end
   end
 
