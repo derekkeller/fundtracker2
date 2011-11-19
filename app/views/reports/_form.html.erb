@@ -4,55 +4,124 @@
 		<%= f.label :period %>
 		<%= f.date_select :period, :discard_day => :true, :default => {:day => 1} %>
 	</div>
-	<div>
-		<%= f.label :summary %>
- 		<%= f.select( :summary_status, options_for_select(Report::STATUS.invert.to_a,  @report.summary_status), :include_blank => true ) %><br />
-		<%= f.text_area :summary, :size => "110x4" %>
+	<div class="report_item">
+		<div class="report_item_title">
+			<%= f.label :summary %>
+		</div>
+		<div class="report_flag_edit">
+	 		<%= f.select( :summary_status, options_for_select(Report::STATUS.invert.to_a,  @report.summary_status), :include_blank => true ) %>
+		</div>
+		<div class="report_item_content">
+			<%= f.text_area :summary, :size => "61x9" %>
+		</div>
 	</div>
-	<div>
-		<%= f.label :management %>
- 		<%= f.select( :management_status, options_for_select(Report::STATUS.invert.to_a,  @report.management_status), :include_blank => true ) %><br />
-		<%= f.text_area :management, :size => "110x4" %>
+	
+	<div class="report_item">
+		<div class="report_item_title">
+			<%= f.label :management %>
+		</div>
+		<div class="report_flag_edit">
+ 			<%= f.select( :management_status, options_for_select(Report::STATUS.invert.to_a,  @report.management_status), :include_blank => true ) %><br />
+		</div>
+		<div class="report_item_content">
+			<%= f.text_area :management, :size => "61x9" %>
+		</div>
 	</div>
-	<div>
-		<%= f.label :product %>
- 		<%= f.select( :product_status, options_for_select(Report::STATUS.invert.to_a,  @report.product_status), :include_blank => true ) %><br />		
-		<%= f.text_area :product, :size => "110x4" %>
+
+	<div class="report_item">
+		<div class="report_item_title">
+			<%= f.label :product %>
+		</div>
+		<div class="report_flag_edit">
+ 			<%= f.select( :product_status, options_for_select(Report::STATUS.invert.to_a,  @report.product_status), :include_blank => true ) %><br />		
+		</div>
+		<div class="report_item_content">
+			<%= f.text_area :product, :size => "61x9" %>
+		</div>
 	</div>	
-	<div>
-		<%= f.label :marketing %>
- 		<%= f.select( :marketing_status, options_for_select(Report::STATUS.invert.to_a,  @report.marketing_status), :include_blank => true ) %><br />
-		<%= f.text_area :marketing, :size => "110x4" %>
+
+	<div class="report_item">
+		<div class="report_item_title">
+			<%= f.label :marketing %>
+		</div>
+		<div class="report_flag_edit">
+	 		<%= f.select( :marketing_status, options_for_select(Report::STATUS.invert.to_a,  @report.marketing_status), :include_blank => true ) %><br />
+		</div>
+		<div class="report_item_content">
+			<%= f.text_area :marketing, :size => "61x9" %>
+		</div>
 	</div>	
-	<div>
-		<%= f.label :sales %>
- 		<%= f.select( :sales_status, options_for_select(Report::STATUS.invert.to_a,  @report.sales_status), :include_blank => true ) %><br />		
-		<%= f.text_area :sales, :size => "110x4" %>
+
+	<div class="report_item">
+		<div class="report_item_title">
+			<%= f.label :sales %>
+		</div>
+		<div class="report_flag_edit">
+	 		<%= f.select( :sales_status, options_for_select(Report::STATUS.invert.to_a,  @report.sales_status), :include_blank => true ) %><br />		
+		</div>
+		<div class="report_item_content">
+			<%= f.text_area :sales, :size => "61x9" %>
+		</div>
 	</div>
-	<div>
-		<%= f.label :business_development %>
- 		<%= f.select( :business_development_status, options_for_select(Report::STATUS.invert.to_a,  @report.business_development_status), :include_blank => true ) %><br />		
-		<%= f.text_area :business_development, :size => "110x4" %>
+
+	<div class="report_item">
+		<div class="report_item_title">
+			<%= f.label :business_development %>
+		</div>
+		<div class='report_flag_edit'>
+	 		<%= f.select( :business_development_status, options_for_select(Report::STATUS.invert.to_a,  @report.business_development_status), :include_blank => true ) %><br />		
+		</div>
+		<div class="report_item_content">
+			<%= f.text_area :business_development, :size => "61x9" %>
+		</div>
 	</div>
-	<div>
-		<%= f.label :competition %>
- 		<%= f.select( :competition_status, options_for_select(Report::STATUS.invert.to_a,  @report.competition_status), :include_blank => true ) %><br />		
-		<%= f.text_area :competition, :size => "110x4" %>
+
+	<div class="report_item">
+		<div class="report_item_title">
+			<%= f.label :competition %>
+		</div>
+		<div class="report_flag_edit">
+	 		<%= f.select( :competition_status, options_for_select(Report::STATUS.invert.to_a,  @report.competition_status), :include_blank => true ) %><br />		
+		</div>
+		<div class="report_item_content">
+			<%= f.text_area :competition, :size => "61x9" %>
+		</div>
 	</div>	
-	<div>
-		<%= f.label :finance %>
- 		<%= f.select( :finance_status, options_for_select(Report::STATUS.invert.to_a,  @report.finance_status), :include_blank => true ) %><br />		
-		<%= f.text_area :finance, :size => "110x4" %>
+
+	<div class="report_item">
+		<div class="report_item_title">
+			<%= f.label :finance %>
+		</div>
+		<div class="report_flag_edit">
+	 		<%= f.select( :finance_status, options_for_select(Report::STATUS.invert.to_a,  @report.finance_status), :include_blank => true ) %><br />		
+		</div>
+		<div class="report_item_content">
+			<%= f.text_area :finance, :size => "61x9" %>
+		</div>
 	</div>
-	<div>
-		<%= f.label :legal %>
- 		<%= f.select( :legal_status, options_for_select(Report::STATUS.invert.to_a,  @report.legal_status), :include_blank => true ) %><br />		
-		<%= f.text_area :legal, :size => "110x4" %>
+
+	<div class="report_item">
+		<div class="report_item_title">
+			<%= f.label :legal %>
+		</div>
+		<div class="report_flag_edit">
+	 		<%= f.select( :legal_status, options_for_select(Report::STATUS.invert.to_a,  @report.legal_status), :include_blank => true ) %><br />		
+		</div>
+		<div class="report_item_content">
+			<%= f.text_area :legal, :size => "61x9" %>
+		</div>
 	</div>
-	<div>
-		<%= f.label :other %>
- 		<%= f.select( :other_status, options_for_select(Report::STATUS.invert.to_a,  @report.other_status), :include_blank => true ) %><br />		
-		<%= f.text_area :other, :size => "110x4" %>
+
+	<div class="report_item">
+			<div class="report_item_title">
+			<%= f.label :other %>
+		</div>
+		<div class="report_flag_edit">
+	 		<%= f.select( :other_status, options_for_select(Report::STATUS.invert.to_a,  @report.other_status), :include_blank => true ) %><br />		
+		</div>
+		<div class="report_item_content">
+			<%= f.text_area :other, :size => "61x9" %>
+		</div>
 	</div>
 	<%= f.submit %>
 <% end %>

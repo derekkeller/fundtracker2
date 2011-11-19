@@ -16,7 +16,7 @@
 
   <% if @report.present? %>
   	<% @report_months.each do |position, month| %>
-  		<div id="<%= position %>" class="month_plain">
+  		<div id="<%= position %>" class="<%= check_report(@report.period.month, position) %>">
   			<%= link_to month, organization_fund_company_report_path(@organization, @fund, @company, @company.reports.where("period = ?", @report.period.beginning_of_year.months_since("#{position}".to_i)).first.id) rescue month %>			
   		</div>
   	<% end %>
@@ -31,6 +31,3 @@
 		<%= link_to "Add Report", new_organization_fund_company_report_path(@organization, @fund, @company) %>
 	</div>
 </div>
-
-
-<%= render 'form' %>

@@ -101,6 +101,13 @@ a:hover {
 	line-height: 20px;
 }
 
+.report_item_content_edit_form {
+	font-family: arial;
+	height: 140px;
+	overflow-y: auto;
+	line-height: 20px;
+}
+
 .hidden {
 	display: none;
 }

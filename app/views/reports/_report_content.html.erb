@@ -3,7 +3,7 @@
 <div class="headers">
   <h2>
     <span class="report_item_content" style="height:20px"><%= @report.period.strftime('%B %Y') %></span>
-    <div class="report_item_content_edit_form" style="display:none">
+    <div class="report_item_content_edit_form" style="display:none; height:20px">
       <%= f.date_select :period, :discard_day => :true, :order => [:month, :year], :default => {:day => 1} %>
       <%= link_to_function '| Save', "save_content()", :class => 'save_button', :style => 'display:none' %>
       <%= link_to '| Cancel', organization_fund_company_report_path(@organization, @fund, @company, @report) %>
@@ -42,7 +42,7 @@
  		    <%= f.select( "#{item}_status".to_sym, options_for_select(Report::STATUS.invert.to_a,  @report.try(item + '_status')), :include_blank => true ) %>
 
       </div>
-  		<div class="report_item_content_edit_form" style="display:none">
+  		<div class="report_item_content_edit_form" style="display:none;font-family:serif">
   		  <%= f.text_area item.to_sym, :size => "61x9" %>
   		</div>
       <%= link_to_function 'Edit', "edit_content()", :class => 'edit_button' %>
