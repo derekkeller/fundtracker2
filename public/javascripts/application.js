@@ -31,16 +31,16 @@ $('.delete').click(function(model_name, item_id){
 });
 
 
-$(document).ready(function() {
-
-  if($("p.notice")[0].innerHTML != ''){
-	   $('p.notice').show();
-  }
-  if($('p.alert')[0].innerHTML != ''){
-		 $('p.alert').show();
-  }
-		
-});
+// $(document).ready(function() {
+// 
+//   if($("p.notice")[0].innerHTML != ''){
+// 	   $('p.notice').show();
+//   }
+//   if($('p.alert')[0].innerHTML != ''){
+// 		 $('p.alert').show();
+//   }
+// 		
+// });
 
 function to_organization_index(t) {
 	if (t) {

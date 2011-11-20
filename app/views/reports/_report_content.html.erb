@@ -1,12 +1,14 @@
-<%= form_for([@organization, @fund, @company, @report] ) do |f| %>
+<input type='hidden' id='save_url' href="<%= report_path %>" />
 
 <div class="headers">
   <h2>
     <span class="report_item_content" style="height:20px"><%= @report.period.strftime('%B %Y') %></span>
     <div class="report_item_content_edit_form" style="display:none; height:20px">
-      <%= f.date_select :period, :discard_day => :true, :order => [:month, :year], :default => {:day => 1} %>
-      <%= link_to_function '| Save', "save_content()", :class => 'save_button', :style => 'display:none' %>
-      <%= link_to '| Cancel', organization_fund_company_report_path(@organization, @fund, @company, @report) %>
+			<%= form_for([@organization, @fund, @company, @report] ) do |f| %>
+	      <%= f.date_select :period, :discard_day => :true, :order => [:month, :year], :default => {:day => 1} %>
+	      <%= link_to_function '| Save', "save_content()", :class => 'save_button', :style => 'display:none' %>
+	      <%= link_to '| Cancel', organization_fund_company_report_path(@organization, @fund, @company, @report) %>
+			<% end %>
     </div>
     <%= link_to_function '| Edit', "edit_content()", :class => 'edit_button' %>
   </h2>  
@@ -37,39 +39,62 @@
   		<div class="report_item_title"><%= item.humanize %></div>
   		<div class="report_item_content"><%= @report.try(item) %></div>
 
-      <!-- Dynamic Edit -->
-      <div class="report_flag_edit" style="display:none">
- 		    <%= f.select( "#{item}_status".to_sym, options_for_select(Report::STATUS.invert.to_a,  @report.try(item + '_status')), :include_blank => true ) %>
+      <!-- Report Edit Content -->
+			<div id="update_me">
+				<%= form_for([@organization, @fund, @company, @report], :remote => true ) do |f| %>
 
-      </div>
-  		<div class="report_item_content_edit_form" style="display:none;font-family:serif">
-  		  <%= f.text_area item.to_sym, :size => "61x9" %>
-  		</div>
-      <%= link_to_function 'Edit', "edit_content()", :class => 'edit_button' %>
-      <%= link_to_function 'Save', "save_content()", :class => 'save_button', :style => 'display:none' %>
-      <%= link_to '| Cancel', organization_fund_company_report_path(@organization, @fund, @company, @report), :class => 'save_button', :style => 'display:none' %>
-  	</div>
-  <% end %>
-  
-<% end %>
+				  <div class="report_flag_edit" style="display:none">
+				    <%= f.select( "#{item}_status".to_sym, options_for_select(Report::STATUS.invert.to_a,  @report.try(item + '_status')), :include_blank => true ) %>
+				  </div>
+					<div class="report_item_content_edit_form" style="display:none; margin-left:-5px;">
+					  <%= f.text_area item.to_sym, :size => "78x5" %>
+					</div>
+				  <%= link_to 'Edit', '#', :class => 'edit_button' %>
+					<%= link_to 'Save', '#', :class => 'save_button', :style => 'display:none' %>
+				  <%= link_to '| Cancel', '#', :class => 'cancel_button', :style => 'display:none' %>
+				<% end %>
+			</div>				
+			<!-- End Edit Content -->
+		</div>  
+	<% end %>
 
 <script type="text/javascript">
-  function edit_content() {
-    $('.report_item_content_edit_form').show();
-    $('.report_item_content').hide();
-    $('.edit_button').hide();
-    $('.save_button').show();
-    $('.report_flag').hide();
-    $('.report_flag_edit').show();    
-  };
+$('.edit_button').click(function (e) {
+	e.preventDefault();
+	var container = $(this).parent().parent().parent();
+	
+	container.find('.report_item_content_edit_form').show();
+	container.find('.report_item_content').hide();
+	container.find('.edit_button').hide();
+	container.find('.save_button').show();
+	container.find('.cancel_button').show();
+	container.find('.report_flag').hide();
+	container.find('.report_flag_edit').show();		
+})
 
-  function save_content() {
-    $('form').submit();
-    $('.report_item_content_edit_form').hide();
-    $('.report_item_content').show();
-    $('.save_button').hide();
-    $('.edit_button').show();
-    $('.report_flag_edit').hide();
-    $('.report_flag').show();
-  };
+$('.save_button').click(function (e) {
+	e.preventDefault();
+	var container = $(this).parent().parent().parent();		
+	container.find('form').submit();		
+	container.find('.report_item_content').text(container.find('.report_item_content_edit_form textarea').val());
+	clear_form(container);
+})
+
+$('.cancel_button').click(function (e) {
+	e.preventDefault();
+	var container = $(this).parent().parent().parent();
+	container.find('.report_item_content_edit_form textarea').val(container.find('.report_item_content').text());
+	
+	clear_form(container);
+})
+
+function clear_form(container) {
+	container.find('.report_item_content_edit_form').hide();
+	container.find('.report_item_content').show();
+	container.find('.save_button').hide();
+	container.find('.cancel_button').hide();
+	container.find('.edit_button').show();
+	container.find('.report_flag_edit').hide();
+	container.find('.report_flag').show();		
+}
 </script>

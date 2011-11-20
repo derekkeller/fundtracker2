@@ -3,6 +3,12 @@ body {
 	font-size: 12px;
 }
 
+textarea {
+	font-family: arial;
+	font-size: 12px;
+	line-height: 20px;
+}
+
 .back_footer {
 	margin-top: 20px;
 	border-top: solid 1px #659EC2;
@@ -66,7 +72,19 @@ a:hover {
 		background-color: #DEECF5;}
 
 
-.report_flag {
+.report_flag_green {
+	float: right;
+	margin-right: 20px;
+	margin-top: -5px;
+}
+
+.report_flag_yellow {
+	float: right;
+	margin-right: 20px;
+	margin-top: -5px;
+}
+
+.report_flag_red {
 	float: right;
 	margin-right: 20px;
 	margin-top: -5px;
