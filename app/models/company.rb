@@ -23,12 +23,12 @@ class Company < ActiveRecord::Base
 
   def next_report(id_number)
     current_date = Report.find(id_number).period
-    return Report.where("period > ?", current_date).last.id
+    return Report.where("period > ?", current_date).first.id
   end
 
   def previous_report(id_number)
     current_date = Report.find(id_number).period
-    return Report.where("period < ?", current_date).first.id
+    return Report.where("period < ?", current_date).last.id
   end
 
   def investment_total

@@ -13,6 +13,9 @@
   <div class="month_plain">
     <%= link_to "< 2010", report_change_report_period_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %>
   </div>
+	<!-- <div class="month_plain">
+		<%= link_to "<", organization_fund_company_report_path(@organization, @fund, @company, @company.previous_report(@report.id)) rescue "<" %>
+	</div> -->
 
   <% if @report.present? %>
   	<% @report_months.each do |position, month| %>
@@ -24,6 +27,9 @@
     Hi!
   <% end %>
 
+	<!-- <div class="month_plain">
+		<%= link_to ">", organization_fund_company_report_path(@organization, @fund, @company, @company.next_report(@report.id)) rescue ">" %>
+	</div> -->
   <div class="month_plain">
     <%= link_to "2012 >", '#' %>
   </div>

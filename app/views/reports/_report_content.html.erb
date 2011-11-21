@@ -6,12 +6,12 @@
     <div class="report_item_content_edit_form" style="display:none; height:20px">
 			<%= form_for([@organization, @fund, @company, @report] ) do |f| %>
 	      <%= f.date_select :period, :discard_day => :true, :order => [:month, :year], :default => {:day => 1} %>
-	      <%= link_to_function '| Save', "save_content()", :class => 'save_button', :style => 'display:none' %>
+	      <%= link_to '| Save All', "#", :class => 'save_all_button', :style => 'display:none' %>
 	      <%= link_to '| Cancel', organization_fund_company_report_path(@organization, @fund, @company, @report) %>
 			<% end %>
     </div>
-    <%= link_to_function '| Edit', "edit_content()", :class => 'edit_button' %>
-  </h2>  
+    <%= link_to '| Edit All', "#", :class => 'edit_all_button' %>
+  </h2>
 </div>
 
 <div id="advancement_container">
@@ -24,52 +24,68 @@
 	</div>
 </div>
 
-  <% @report_items.each do |item| %>
-  	<div class="report_item">
-  		<div class="report_flag">
-  			<% if Report::STATUS[@report.try(item + "_status")] == "Green" %>
-  				<%= image_tag('green.png') %>
-  			<% elsif Report::STATUS[@report.try(item + "_status")] == "Yellow" %>
-  				<%= image_tag('yellow.png') %>
-  			<% elsif Report::STATUS[@report.try(item + "_status")] == "Red"  %>
-  				<%= image_tag('red.png') %>
-  			<% else %>
-  			<% end %>
-  		</div>
-  		<div class="report_item_title"><%= item.humanize %></div>
-  		<div class="report_item_content"><%= @report.try(item) %></div>
+	<div id="form_container">
+	  <% @report_items.each do |item| %>
+	  	<div class="report_item">
+				<div class="report_flag <%= get_flag_color(@report.try(item + '_status')) %>"></div>
+	  		<div class="report_item_title"><%= item.humanize %></div>
+	  		<div class="report_item_content"><%= @report.try(item) %></div>
 
-      <!-- Report Edit Content -->
-			<div id="update_me">
-				<%= form_for([@organization, @fund, @company, @report], :remote => true ) do |f| %>
+	      <!-- Report Edit Content -->
+				<div id="inner_form_container">
+					<%= form_for([@organization, @fund, @company, @report], :remote => true ) do |f| %>
 
-				  <div class="report_flag_edit" style="display:none">
-				    <%= f.select( "#{item}_status".to_sym, options_for_select(Report::STATUS.invert.to_a,  @report.try(item + '_status')), :include_blank => true ) %>
-				  </div>
-					<div class="report_item_content_edit_form" style="display:none; margin-left:-5px;">
-					  <%= f.text_area item.to_sym, :size => "78x5" %>
-					</div>
-				  <%= link_to 'Edit', '#', :class => 'edit_button' %>
-					<%= link_to 'Save', '#', :class => 'save_button', :style => 'display:none' %>
-				  <%= link_to '| Cancel', '#', :class => 'cancel_button', :style => 'display:none' %>
-				<% end %>
-			</div>				
-			<!-- End Edit Content -->
-		</div>  
-	<% end %>
-
+					  <div class="report_flag_edit" style="display:none">
+					    <%= f.select( "#{item}_status".to_sym, options_for_select(Report::STATUS, @report.try(item + '_status')), :include_blank => true ) %>
+					  </div>
+						<div class="report_item_content_edit_form" style="display:none; margin-left:-5px;">
+						  <%= f.text_area item.to_sym, :size => "78x5" %>
+						</div>
+					  <%= link_to 'Edit', '#', :class => 'edit_button' %>
+						<%= link_to 'Save', '#', :class => 'save_button', :style => 'display:none' %>
+					  <%= link_to '| Cancel', '#', :class => 'cancel_button', :style => 'display:none' %>
+					<% end %>
+				</div>
+				<!-- End Edit Content -->
+			</div>  
+		<% end %>
+	</div>				
 <script type="text/javascript">
 $('.edit_button').click(function (e) {
 	e.preventDefault();
 	var container = $(this).parent().parent().parent();
-	
 	container.find('.report_item_content_edit_form').show();
 	container.find('.report_item_content').hide();
 	container.find('.edit_button').hide();
 	container.find('.save_button').show();
 	container.find('.cancel_button').show();
 	container.find('.report_flag').hide();
+
+	if(container.find('.report_flag').hasClass('flag_green')) {
+		container.find('.report_flag_edit select').val('green');
+	}
+	else if(container.find('.report_flag').hasClass('flag_yellow')) {
+		container.find('.report_flag_edit select').val('yellow');		
+	} 
+	else if(container.find('.report_flag').hasClass('flag_red')) {
+		container.find('.report_flag_edit select').val('red');		
+	}
+	else {
+		container.find('.report_flag_edit select').val('');				
+	}
+
 	container.find('.report_flag_edit').show();		
+})
+
+$('.edit_all_button').click(function (e) {
+	e.preventDefault();
+	$('.report_item_content_edit_form').show();
+	$('.report_item_content').hide();
+	$('.edit_button').hide();
+	$('.edit_all_button').hide();
+	$('.save_all_button').show();
+	$('.report_flag').hide();
+	$('.report_flag_edit').show();
 })
 
 $('.save_button').click(function (e) {
@@ -77,14 +93,22 @@ $('.save_button').click(function (e) {
 	var container = $(this).parent().parent().parent();		
 	container.find('form').submit();		
 	container.find('.report_item_content').text(container.find('.report_item_content_edit_form textarea').val());
+	container.find('.report_flag').removeClass().addClass('report_flag flag_' + container.find('.report_flag_edit select').val());
 	clear_form(container);
 })
+
+$('.save_all_button').click(function (e) {
+	e.preventDefault();
+	$('#form_container').find('form').submit();
+	window.location.replace('');
+})
+
 
 $('.cancel_button').click(function (e) {
 	e.preventDefault();
 	var container = $(this).parent().parent().parent();
 	container.find('.report_item_content_edit_form textarea').val(container.find('.report_item_content').text());
-	
+	container.find('.report_flag_edit select').val()
 	clear_form(container);
 })
 

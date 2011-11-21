@@ -9,6 +9,8 @@ gem 'sqlite3'
 
 gem 'jquery-rails', '>= 1.0.12'
 
+gem 'rake', '0.9.2.2'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

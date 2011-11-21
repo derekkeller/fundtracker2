@@ -71,23 +71,58 @@ a:hover {
 		text-decoration: none;
 		background-color: #DEECF5;}
 
+.flag_green {
+	float: right;
+	margin-right: 20px;
+	margin-top: -5px;
+	background-image: url('/images/green.png');
+	width: 25px;
+	height: 25px;	
+}
+
+.flag_yellow {
+	float: right;
+	margin-right: 20px;
+	margin-top: -5px;
+	background-image: url('/images/yellow.png');
+	width: 25px;
+	height: 25px;	
+}
+
+.flag_red {
+	float: right;
+	margin-right: 20px;
+	margin-top: -5px;
+	background-image: url('/images/red.png');
+	width: 25px;
+	height: 25px;
+}
 
 .report_flag_green {
 	float: right;
 	margin-right: 20px;
 	margin-top: -5px;
+	background-image: url('/images/green.png');
+	width: 25px;
+	height: 25px;
 }
 
 .report_flag_yellow {
 	float: right;
 	margin-right: 20px;
 	margin-top: -5px;
+	background-image: url('/images/yellow.png');
+	width: 25px;
+	height: 25px;
 }
 
 .report_flag_red {
 	float: right;
 	margin-right: 20px;
 	margin-top: -5px;
+	background-image: url('/images/red.png');
+	width: 25px;
+	height: 25px;
 }
 
 .report_flag_edit {
