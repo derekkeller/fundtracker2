@@ -6,7 +6,7 @@
     <div class="report_item_content_edit_form" style="display:none; height:20px">
 			<%= form_for([@organization, @fund, @company, @report] ) do |f| %>
 	      <%= f.date_select :period, :discard_day => :true, :order => [:month, :year], :default => {:day => 1} %>
-	      <%= link_to '| Save All', "#", :class => 'save_all_button', :style => 'display:none' %>
+	      <%= link_to 'Save All', "#", :class => 'save_all_button', :style => 'display:none' %>
 	      <%= link_to '| Cancel', organization_fund_company_report_path(@organization, @fund, @company, @report) %>
 			<% end %>
     </div>
