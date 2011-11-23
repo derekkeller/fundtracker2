@@ -4,6 +4,7 @@ Fundtracker2::Application.routes.draw do
 
   post 'reports/show_filtered'
   
+  resources :users
   resources :organizations
   resources :funds
   resources :companies

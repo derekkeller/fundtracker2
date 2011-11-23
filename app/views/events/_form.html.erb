@@ -12,28 +12,22 @@
 	<%= f.text_field :date %></p>
 
 	<p><%= f.label :notes %><br />
-	<%= f.text_area :notes %></p>
+	<%= f.text_area :notes, :size => '80x5' %></p>
 
 	<p>
 		<p><%= @investor.name %> Contacts</p>
-		<% if User.where('investor_id = ?', @investor.id).present? %>
-			<% User.where('investor_id = ?', @investor.id).all.each do |participant| %>
-		    <label>
-		      <%= check_box_tag "event[attendee_ids][]", participant.id, @event.attendee_ids.include?(participant.id) %>
-					<%= participant.first_name %><br />
-		    </label>
-		  <% end %>
-		<% else %>
-			<p>(No contacts available)</p>
-		<% end %>
+			<% @investor.users.each do |participant| %>
+				<%= check_box_tag "event[attendee_ids][]", participant.id, @event.attendee_ids.include?(participant.id) %>
+				<%= participant.first_name %><br />
+			<% end %>
+			<%= "(No contacts available)" if @investor.users.empty? %>
 
-		<p>Highway 12 Team</p>
-		<% (Role.find_by_name('admin').users + Role.find_by_name('manager').users).each do |h12_participant| %>
-	    <label>
-	      <%= check_box_tag "event[attendee_ids][]", h12_participant.id, @event.attendee_ids.include?(h12_participant.id) %>
-				<%= h12_participant.first_name %><br />
-	    </label>
-	  <% end %>
+		<p><%= @organization.name + "Team" %></p>
+			<% @organization.users.each do |investor_participant| %>
+				<%= check_box_tag "event[attendee_ids][]", investor_participant.id, @event.attendee_ids.include?(investor_participant.id) %>
+				<%= investor_participant.first_name %><br />
+			<% end %>
+			<%= "(No contacts available)" if @organization.users.empty? %>
 
 	</p>
 

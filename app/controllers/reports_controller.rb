@@ -20,10 +20,10 @@ class ReportsController < ApplicationController
 
   def index
     @reports = @company.reports.all
+    session[:report_year] ||= Date.today.beginning_of_year.year
   end
 
   def show    
-    session[:report_year] = Date.today.beginning_of_year
     @report_items = ["summary", "product", "management", "marketing", "business_development", "competition", "sales", "finance", "legal", "other"]
     @report = @company.reports.find(params[:id])
 
@@ -47,12 +47,13 @@ class ReportsController < ApplicationController
   end
 
   def change_report_period
-    if params[:report_id] == 1
+    if params[:report_id] == '1'
       session[:report_year] -= 1.year
     else
       session[:report_year] += 1.year
     end
-    
+
+    # raise session.inspect
     redirect_to :action => :show, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => params[:company_id]
   end
 

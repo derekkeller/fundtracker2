@@ -11,7 +11,7 @@
 
 <div class="report_month_menu">
   <div class="month_plain">
-    <%= link_to "< 2010", report_change_report_period_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %>
+    <%= link_to "< #{Date.civil(session[:report_year]).years_ago(1).year}", report_change_report_period_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %>
   </div>
 	<!-- <div class="month_plain">
 		<%= link_to "<", organization_fund_company_report_path(@organization, @fund, @company, @company.previous_report(@report.id)) rescue "<" %>
@@ -31,7 +31,7 @@
 		<%= link_to ">", organization_fund_company_report_path(@organization, @fund, @company, @company.next_report(@report.id)) rescue ">" %>
 	</div> -->
   <div class="month_plain">
-    <%= link_to "2012 >", '#' %>
+    <%= link_to "#{Date.civil(session[:report_year]).years_since(1).year	} >", '#' %>
   </div>
 	<div class="month_plain" style="float: right">
 		<%= link_to "Add Report", new_organization_fund_company_report_path(@organization, @fund, @company) %>

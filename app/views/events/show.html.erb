@@ -20,7 +20,7 @@
 				<div id='task_item'>Investors Present</div>
 				<div id='task_item_detail'>
 					<ul>
-						<% @event.attendees.investors.each do |attendee| %>							
+						<% @event.attending_investors.each do |attendee| %>							
 							<li><%= attendee.to_s %></li>
 						<% end %>
 					</ul>
@@ -30,7 +30,7 @@
 				<div id='task_item'>H12 Team Present</div>
 				<div id='task_item_detail'>
 					<ul>
-						<% @event.attendees.employees.each do |attendee| %>							
+						<% @event.attending_managers.each do |attendee| %>
 							<li><%= attendee.to_s %></li>
 						<% end %>
 					</ul>

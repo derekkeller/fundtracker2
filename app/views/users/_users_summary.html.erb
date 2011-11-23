@@ -6,14 +6,12 @@
   <tr class="theight theader">
 		<th class='leftfirst'>Name</th>
 		<th class='left'>Email</th>
-		<th class='left'>Phone</th>
 		<th class='left'>Notes</th>
 	</tr>
 	<% @users.each do |user| %>
 <tr class="theight">
 		<td class='left'><%= [user.first_name, user.last_name].join(" ") %></td>
 		<td class='left'><%= user.email %></td>
-		<td class='left'><%= user.phone %></td>			
 		<td class='left'><%= user.notes %></td>						
 	</tr>
 	<% end %>

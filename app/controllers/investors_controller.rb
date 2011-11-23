@@ -21,7 +21,7 @@ class InvestorsController < ApplicationController
 
   def show
     @investor = @organization.investors.find(params[:id])
-    @users = User.all
+    @users = @investor.users.all
     @tasks = @investor.tasks.all
     @events = @investor.events.all
   end

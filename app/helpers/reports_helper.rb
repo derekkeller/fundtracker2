@@ -12,5 +12,5 @@ module ReportsHelper
       ''
     end
   end
-
+  
 end

@@ -1,15 +1,16 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
+      t.integer     :organization_id
+      t.integer     :investor_id
       t.integer     :company_id
+
       t.string      :email
       t.string      :first_name
       t.string      :last_name
       t.text        :notes
-      t.integer     :investor_id
       t.string      :user_type
       t.string      :password_hash
-      t.integer     :fund_id
       t.integer     :role_id
       t.boolean     :active, :default => false
       t.boolean     :is_admin, :default => false

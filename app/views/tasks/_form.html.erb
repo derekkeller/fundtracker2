@@ -19,7 +19,7 @@
 	</p>
 	<p>
 		<%= f.label :description %><br />
-		<%= f.text_area :description %>
+		<%= f.text_area :description, :size => '80x5' %>
 	</p>
 	<p>
 		<%= f.label :due_date %>
@@ -35,11 +35,11 @@
 	</p>
 	<p>
 		<%= f.label :event_id %>
-		<%= f.select :event_id, (Event.where('investor_id = ?', @investor.id).all.collect {|e| [e.name, e.id]}), :include_blank => true %>
+		<%= f.select :event_id, @investor.events.collect {|e| [e.name, e.id]}, :include_blank => true %>
 	</p>
 	<p>
 		<%= f.label :task_owner %>
-		<%= f.select :task_owner_id, (User.all.collect {|u| [u.first_name, u.id]}), :include_blank => true %>
+		<%= f.select :task_owner_id, @organization.users.collect {|u| [u.first_name, u.id]}, :include_blank => true %>
 	</p>	
 	<p>
 		<%= f.submit %>
