@@ -1,4 +1,4 @@
-<input type='hidden' id='save_url' href="<%= report_path %>" />
+<!-- <input type='hidden' id='save_url' href="<%= report_path %>" /> -->
 
 <div class="headers">
   <h2>
@@ -75,7 +75,7 @@ $('.edit_button').click(function (e) {
 	}
 
 	container.find('.report_flag_edit').show();		
-})
+});
 
 $('.edit_all_button').click(function (e) {
 	e.preventDefault();
@@ -86,7 +86,7 @@ $('.edit_all_button').click(function (e) {
 	$('.save_all_button').show();
 	$('.report_flag').hide();
 	$('.report_flag_edit').show();
-})
+});
 
 $('.save_button').click(function (e) {
 	e.preventDefault();
@@ -95,13 +95,13 @@ $('.save_button').click(function (e) {
 	container.find('.report_item_content').text(container.find('.report_item_content_edit_form textarea').val());
 	container.find('.report_flag').removeClass().addClass('report_flag flag_' + container.find('.report_flag_edit select').val());
 	clear_form(container);
-})
+});
 
 $('.save_all_button').click(function (e) {
 	e.preventDefault();
 	$('#form_container').find('form').submit();
 	window.location.replace('');
-})
+});
 
 
 $('.cancel_button').click(function (e) {
@@ -110,7 +110,7 @@ $('.cancel_button').click(function (e) {
 	container.find('.report_item_content_edit_form textarea').val(container.find('.report_item_content').text());
 	container.find('.report_flag_edit select').val()
 	clear_form(container);
-})
+});
 
 function clear_form(container) {
 	container.find('.report_item_content_edit_form').hide();
@@ -120,5 +120,24 @@ function clear_form(container) {
 	container.find('.edit_button').show();
 	container.find('.report_flag_edit').hide();
 	container.find('.report_flag').show();		
-}
+};
+
+
+$('#year_selector').change(function() {
+	// alert('You changed the year');
+	
+	var filteryear = $('#year_selector').val();
+	
+	$.ajax({
+		type: 'POST',
+		url: '/reports/find_report_filter',
+		data: {fyear: filteryear},
+		dataType: 'json',
+		success: function(data){
+			$('#month_select_container').html(data.filtered_reports);
+		}
+	});
+});
+
+
 </script>

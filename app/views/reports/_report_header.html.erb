@@ -2,16 +2,26 @@
   <h1><%= @company.name %> Reports</h1>  
 </div>
 
+	<%= select_year(Date.today, {}, :field_name => :report_year, :id => "year_selector") %>
+
+	<div id="month_select_container">
+	</div>
+
+<%
+=begin %>
 <%= form_tag '/reports/show_filtered', :remote => true do %>
-		<%= select_month(Date.today, :field_name => :report_month) %>
 		<%= select_year(Date.today, :field_name => :report_year) %>
+		<%= select_month(Date.today, :field_name => :report_month) %>
 		<%= submit_tag "See Report" %>
 <% end %>
+<%
+=end %>
+
 <br />
 
 <div class="report_month_menu">
   <div class="month_plain">
-    <%= link_to "< #{Date.civil(session[:report_year]).years_ago(1).year}", report_change_report_period_path(1, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => @company.id), :method => :put %>
+		<%= report_move_back %>
   </div>
 	<!-- <div class="month_plain">
 		<%= link_to "<", organization_fund_company_report_path(@organization, @fund, @company, @company.previous_report(@report.id)) rescue "<" %>
@@ -31,7 +41,7 @@
 		<%= link_to ">", organization_fund_company_report_path(@organization, @fund, @company, @company.next_report(@report.id)) rescue ">" %>
 	</div> -->
   <div class="month_plain">
-    <%= link_to "#{Date.civil(session[:report_year]).years_since(1).year	} >", '#' %>
+		<%= report_move_forward %>
   </div>
 	<div class="month_plain" style="float: right">
 		<%= link_to "Add Report", new_organization_fund_company_report_path(@organization, @fund, @company) %>

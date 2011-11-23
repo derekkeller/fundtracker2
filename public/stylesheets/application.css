@@ -694,7 +694,7 @@ hr.clear {
 		#company_summary_box_content_name {
 			float: left;}
 		#company_summary_box_content_value {
-			text-aling: right;
+			text-align: right;
 			float: right;}
 			
 #company_summary_box_tall {
@@ -718,7 +718,7 @@ hr.clear {
 			float: left;}
 		#company_summary_box_tall_content_value {
 			width: 180px;
-			text-aling: left;
+			text-align: left;
 			float: right;}			
 
 #company_summary_box_wide {

@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_filter :load_paths, :except => :show_filtered
+  before_filter :load_paths, :except => [:show_filtered, :find_report_filter]
 
   def new
     @report = Report.new
@@ -20,7 +20,7 @@ class ReportsController < ApplicationController
 
   def index
     @reports = @company.reports.all
-    session[:report_year] ||= Date.today.beginning_of_year.year
+    session[:report_year] = Date.today.beginning_of_year
   end
 
   def show    
@@ -46,15 +46,33 @@ class ReportsController < ApplicationController
     end    
   end
 
+  def find_report_filter
+    year = Date.civil(params[:fyear].to_i)
+
+    starting = year.beginning_of_year
+    ending = year.end_of_year
+    
+    @filtered_reports = Report.where('period between ? AND ?', starting, ending).all.map {|report| [report.period.month, report.id] }
+        
+    render :json => {:filtered_reports => @filtered_reports}
+  end
+
   def change_report_period
-    if params[:report_id] == '1'
+    if params[:report_move_direction] == '1'
       session[:report_year] -= 1.year
     else
       session[:report_year] += 1.year
     end
 
-    # raise session.inspect
-    redirect_to :action => :show, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => params[:company_id]
+    report_start = session[:report_year].beginning_of_year
+    report_end = session[:report_year].end_of_year
+    new_report = Report.where('period between ? AND ?', report_start, report_end).last
+    
+    new_report ||= params[:id]
+    new_report ||= params[:report_id]
+
+    redirect_to :action => :show, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => params[:company_id], :id => new_report
+
   end
 
   def edit

@@ -138,6 +138,20 @@ Investment.create([
                   :notes => "Acquisition spree financing to allow for business expansion and new opportunity creation."
                 }])
 
+Investor.create(
+                :name => "Hamilton Lane",
+                :organization_id => 1,
+                :street => "101 South Main",
+                :city => "San Francisco",
+                :state => "CA",
+                :zipcode => "87265",
+                :status => "Looks interesting, things seem to be progressing well.",
+                :assets => 1000000000,
+                :expected_commitment => 20000000,
+                :expected_close => "2012-01-01",
+                :probability => "moderate",                
+                 )
+
 Role.create([
               {:name => "admin"},
               {:name => "manager"},
