@@ -39,6 +39,7 @@ a:hover {
 /* REPORT MONTH MENU */
 
 .report_month_menu {
+	margin-top: 12px;
 	padding-top: 9px;
 	width: 950px;
 	height: 23px;

@@ -13,8 +13,7 @@ module ReportsHelper
     end
   end
   
-  def report_move_back
-    
+  def report_move_back    
     report_start = session[:report_year].years_ago(1).beginning_of_year
     report_end = session[:report_year].years_ago(1).end_of_year
     new_report = Report.where('period between ? AND ?', report_start, report_end).last

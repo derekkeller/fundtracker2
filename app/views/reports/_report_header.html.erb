@@ -2,11 +2,11 @@
   <h1><%= @company.name %> Reports</h1>  
 </div>
 
-	<%= select_year(Date.today, {}, :field_name => :report_year, :id => "year_selector") %>
+	<%= select_year(nil, {:include_blank => true}, :field_name => :report_year, :id => "year_selector", :style => "float: left; margin-right:10px") %>
 
-	<div id="month_select_container" style="display: none;">
+	<div id="month_select_container" style="display: none; float: left">
 		<select id="month_select" size="1">
-		</select>	
+		</select>
 	</div>
 
 <br />

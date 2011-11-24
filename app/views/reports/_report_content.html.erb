@@ -139,10 +139,22 @@ $('#year_selector').change(function() {
 				if(data.length > 0) {
 					$('#month_select_container').show();
 				}
-
 		  }
 	});
 });
 
+
+$('#month_select').change(function() {
+	$.ajax({
+		type: 'POST',
+		url: '/reports/find_report_filter_redirect',
+		data: {month: this.value},
+		dataType: 'json',
+		success: function( data ) {
+			window.location = data.location;
+			}
+	});
+	// alert('here she is!')
+});
 
 </script>

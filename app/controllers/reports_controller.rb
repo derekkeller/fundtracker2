@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_filter :load_paths, :except => [:show_filtered, :find_report_filter]
+  before_filter :load_paths, :except => [:show_filtered, :find_report_filter, :find_report_filter_redirect]
 
   def new
     @report = Report.new
@@ -54,8 +54,21 @@ class ReportsController < ApplicationController
     
     @filtered_reports = Report.where('period between ? AND ?', starting, ending).all.map {|report| [report.period.strftime("%B"), report.id] }
     
-    render(:json => @filtered_reports)   
+    render(:json => @filtered_reports)
+  end
 
+  def find_report_filter_redirect
+    report_id = params[:month].to_i
+
+    @organization = Report.find(report_id).company.fund.organization
+    @fund = Report.find(report_id).company.fund
+    @company = Report.find(report_id).company
+    @report = Report.find(report_id)
+
+    render(:json => {:location => "/organizations/#{@organization.id}/funds/#{@fund.id}/companies/#{@company.id}/reports/#{@report.id}"})
+
+    # redirect_to organization_fund_company_report_path(@organization, @fund, @company, @report), :notice => "This redirect worked!"    
+    # redirect_to :action => :show, :organization_id => @organization.id, :fund_id => @fund.id, :company_id => @company.id, :report_id => @report.id, :notice => "This redirect worked!"    
   end
 
   def change_report_period
@@ -73,7 +86,6 @@ class ReportsController < ApplicationController
     new_report ||= params[:report_id]
 
     redirect_to :action => :show, :organization_id => params[:organization_id], :fund_id => params[:fund_id], :company_id => params[:company_id], :id => new_report
-
   end
 
   def edit

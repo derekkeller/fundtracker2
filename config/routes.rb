@@ -4,6 +4,7 @@ Fundtracker2::Application.routes.draw do
 
   post 'reports/show_filtered'
   post 'reports/find_report_filter'
+  post 'reports/find_report_filter_redirect'
   
   resources :users
   resources :organizations
