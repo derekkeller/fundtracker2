@@ -4,18 +4,10 @@
 
 	<%= select_year(Date.today, {}, :field_name => :report_year, :id => "year_selector") %>
 
-	<div id="month_select_container">
+	<div id="month_select_container" style="display: none;">
+		<select id="month_select" size="1">
+		</select>	
 	</div>
-
-<%
-=begin %>
-<%= form_tag '/reports/show_filtered', :remote => true do %>
-		<%= select_year(Date.today, :field_name => :report_year) %>
-		<%= select_month(Date.today, :field_name => :report_month) %>
-		<%= submit_tag "See Report" %>
-<% end %>
-<%
-=end %>
 
 <br />
 
