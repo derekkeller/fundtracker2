@@ -124,18 +124,23 @@ function clear_form(container) {
 
 
 $('#year_selector').change(function() {
-	// alert('You changed the year');
-	
-	var filteryear = $('#year_selector').val();
-	
 	$.ajax({
 		type: 'POST',
 		url: '/reports/find_report_filter',
-		data: {fyear: filteryear},
+		data: {fyear: this.value},
 		dataType: 'json',
-		success: function(data){
-			$('#month_select_container').html(data.filtered_reports);
-		}
+		success: function( data ) {
+				// so here we need to build a select with the options in the data array
+				// and put it in the month_select_container
+				var $select = $('#month_select')[0];
+				$.each(data, function(index, value) {
+					$select.options[index] = new Option(value[0], value[1]);
+				});
+				if(data.length > 0) {
+					$('#month_select_container').show();
+				}
+
+		  }
 	});
 });
 

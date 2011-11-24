@@ -52,9 +52,10 @@ class ReportsController < ApplicationController
     starting = year.beginning_of_year
     ending = year.end_of_year
     
-    @filtered_reports = Report.where('period between ? AND ?', starting, ending).all.map {|report| [report.period.month, report.id] }
-        
-    render :json => {:filtered_reports => @filtered_reports}
+    @filtered_reports = Report.where('period between ? AND ?', starting, ending).all.map {|report| [report.period.strftime("%B"), report.id] }
+    
+    render(:json => @filtered_reports)   
+
   end
 
   def change_report_period
